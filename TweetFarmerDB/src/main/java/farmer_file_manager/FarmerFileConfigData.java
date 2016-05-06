@@ -1,12 +1,12 @@
 package farmer_file_manager;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import org.dom4j.*;
+import org.dom4j.io.SAXReader;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.OutputStreamWriter;
+import java.util.List;
 
 /**
  * Created by apolol92 on 06.05.2016.
@@ -138,32 +138,33 @@ public class FarmerFileConfigData {
 
 
     /**
-     * This method write this Data in a file
+     * This method writes this Data in a file
      * @param folder, in which folder?
      */
     public void writeInFolder(String folder) {
         try {
             Document document = DocumentHelper.createDocument();
             //Farmer-Name
-            Element root = document.addElement("farmer").addAttribute("name",this.getName());
+            Element root = document.addElement("farmer");
+            Element nameElement = root.addAttribute("name",this.getName());
             //Hashtags
-            Element hashtagsElement = document.addElement("hashtags");
+            Element hashtagsElement = root.addElement("hashtags");
             for(String h : this.getHashtags()) {
                 Element hashtagElement = hashtagsElement.addElement("hashtag").addAttribute("str",h);
             }
             //Database
-            Element databaseElement = document.addElement("database");
+            Element databaseElement = root.addElement("database");
             Element databaseIpElement = databaseElement.addElement("ip").addAttribute("str",this.getDatabaseip());
             Element databasename = databaseElement.addElement("name").addAttribute("str",this.getDatabasename());
             Element databaseUsername = databaseElement.addElement("username").addAttribute("str",this.getDatabaseUsername());
             Element databasePassword = databaseElement.addElement("password").addAttribute("str",this.getDatabasePassword());
             Element databaseTyp = databaseElement.addElement("databaseTyp").addAttribute("str",this.getDatabaseTyp());
             //Twitter
-            Element twitterElement = document.addElement("twitter");
+            Element twitterElement = root.addElement("twitter");
             Element twitterAccessToken = twitterElement.addElement("access_token").addAttribute("str",this.getTwitterAccessToken());
             Element twitterAccessTokenSecret = twitterElement.addElement("access_token_secret").addAttribute("str",this.getTwitterAccessTokenSecret());
             //Classes
-            Element classesElement = document.addElement("classes");
+            Element classesElement = root.addElement("classes");
             for(String c : this.getClasses()) {
                 Element classElement = classesElement.addElement("class").addAttribute("str", c);
             }
@@ -173,6 +174,78 @@ public class FarmerFileConfigData {
 
         }catch (Exception ex) {
 
+        }
+    }
+
+    /**
+     * This method reads data from a file
+     */
+    public FarmerFileConfigData readeFromFolder(String path) {
+        try {
+            FarmerFileConfigData farmerFileConfigData = new FarmerFileConfigData();
+            File inputFile = new File(path);
+            SAXReader reader = new SAXReader();
+            Document document = reader.read( inputFile );
+
+            Element classElement = document.getRootElement();
+
+            List<Node> nodes = document.selectNodes("/farmer" );
+            int i = 0;
+            for (Node node : nodes) {
+                switch (i) {
+                    case 0:
+                        farmerFileConfigData.setName(node.valueOf("@str"));
+                        break;
+                    case 1:
+                        //farmerFileConfigData.set(node.valueOf("@str"));
+                        List<Node> hashtags = node.selectNodes("/hashtags");
+                        String[] hts = new String[hashtags.size()];
+                        int d = 0;
+                        for(Node hNode : hashtags) {
+                            hts[d] = hNode.valueOf("@str");
+                            d++;
+                        }
+                        farmerFileConfigData.setHashtags(hts);
+                        break;
+                    case 2:
+                        farmerFileConfigData.setDatabaseip(node.valueOf("@str"));
+                        break;
+                    case 3:
+                        farmerFileConfigData.setDatabasename(node.valueOf("@str"));
+                        break;
+                    case 4:
+                        farmerFileConfigData.setDatabaseUsername(node.valueOf("@str"));
+                        break;
+                    case 5:
+                        farmerFileConfigData.setDatabasePassword(node.valueOf("@str"));
+                        break;
+                    case 6:
+                        farmerFileConfigData.setDatabaseTyp(node.valueOf("@str"));
+                        break;
+                    case 7:
+                        farmerFileConfigData.setTwitterAccessToken(node.valueOf("@str"));
+                        break;
+                    case 8:
+                        farmerFileConfigData.setTwitterAccessTokenSecret(node.valueOf("@str"));
+                        break;
+                    case 9:
+                        //farmerFileConfigData.setClasses(node.valueOf("@str"));
+                        List<Node> classes = node.selectNodes("/hashtags");
+                        String[] cs = new String[classes.size()];
+                        int e = 0;
+                        for(Node cNode : classes) {
+                            cs[e] = cNode.valueOf("@str");
+                            e++;
+                        }
+                        farmerFileConfigData.setClasses(cs);
+                        break;
+                }
+                i++;
+            }
+            return farmerFileConfigData;
+        } catch (DocumentException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
