@@ -25,11 +25,11 @@ public class FarmerFileWriter extends FarmerFileManager {
         File farmerFolder = new File(super.FARMER_FOLDER+"/"+farmerFileConfigData.getName());
         if (!farmerFolder.exists()) {
             farmerFolder.mkdir();
-            File farmerConfigFolder = new File(super.FARMER_FOLDER+"/config");
+            File farmerConfigFolder = new File(super.FARMER_FOLDER+"/"+farmerFileConfigData.getName()+"/config");
             farmerConfigFolder.mkdir();
-            File farmerOutputFolder = new File(super.FARMER_FOLDER+"/output");
+            File farmerOutputFolder = new File(super.FARMER_FOLDER+"/"+farmerFileConfigData.getName()+"/output");
             farmerOutputFolder.mkdir();
-            farmerFileConfigData.writeInFolder(super.FARMER_FOLDER+"/"+farmerFileConfigData.getName()+"/config/main_config.xml");
+            farmerFileConfigData.writeInFile(super.FARMER_FOLDER+"/"+farmerFileConfigData.getName()+"/config/main_config.xml");
             return true;
         }
         else {

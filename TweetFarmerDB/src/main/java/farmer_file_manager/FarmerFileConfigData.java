@@ -1,11 +1,12 @@
 package farmer_file_manager;
 
 import org.dom4j.*;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
+
+import java.io.*;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class FarmerFileConfigData {
     /**
      * Twitter-Access-Token-Secret
      */
-    String TwitterAccessTokenSecret;
+    String twitterAccessTokenSecret;
     /**
      * Classes for classifier
      */
@@ -129,19 +130,54 @@ public class FarmerFileConfigData {
     }
 
     public String getTwitterAccessTokenSecret() {
-        return TwitterAccessTokenSecret;
+        return twitterAccessTokenSecret;
     }
 
     public void setTwitterAccessTokenSecret(String twitterAccessTokenSecret) {
-        TwitterAccessTokenSecret = twitterAccessTokenSecret;
+        twitterAccessTokenSecret = twitterAccessTokenSecret;
     }
+
+    /**
+     * Default Constructor
+     */
+    public FarmerFileConfigData() {
+
+    }
+
+    /**
+     * Create FarmerFileConfigData from raw input..
+     * @param name
+     * @param hashtags
+     * @param databaseip
+     * @param databasename
+     * @param databaseUsername
+     * @param databasePassword
+     * @param databaseTyp
+     * @param classes
+     * @param twitterAccessToken
+     * @param twitterAccessTokenSecret
+     */
+    public FarmerFileConfigData(String name, String hashtags, String databaseip, String databasename, String databaseUsername, String databasePassword,
+                                String databaseTyp, String classes, String twitterAccessToken, String twitterAccessTokenSecret) {
+        this.name = name;
+        this.hashtags = hashtags.split(",");
+        this.databaseip = databaseip;
+        this.databasename = databasename;
+        this.databaseUsername = databaseUsername;
+        this.databasePassword = databasePassword;
+        this.databaseTyp = databaseTyp;
+        this.classes = classes.split(",");
+        this.twitterAccessToken = twitterAccessToken;
+        this.twitterAccessTokenSecret = twitterAccessTokenSecret;
+    }
+
 
 
     /**
      * This method writes this Data in a file
-     * @param folder, in which folder?
+     * @param path, in which file
      */
-    public void writeInFolder(String folder) {
+    public void writeInFile(String path) {
         try {
             Document document = DocumentHelper.createDocument();
             //Farmer-Name
@@ -168,12 +204,20 @@ public class FarmerFileConfigData {
             for(String c : this.getClasses()) {
                 Element classElement = classesElement.addElement("class").addAttribute("str", c);
             }
-            //XML-Writer
-            FileWriter out = new FileWriter(folder);
-            document.write( out );
+            //XML-System.out
+            OutputFormat format = OutputFormat.createPrettyPrint();
+            XMLWriter writer;
+            writer = new XMLWriter( System.out, format );
+            writer.write( document );
+            //File output
+            FileOutputStream fos = new FileOutputStream(path);
+            XMLWriter writerFos = new XMLWriter(fos, format);
+            writerFos.write(document);
+            writerFos.flush();
 
-        }catch (Exception ex) {
-
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 

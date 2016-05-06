@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<farmer name="hallo_test">
+  <hashtags>
+    <hashtag str="links"/>
+    <hashtag str="test"/>
+  </hashtags>
+  <database>
+    <ip str="123.43.15.3"/>
+    <name str="testdb"/>
+    <username str="testdb"/>
+    <password str="testpw"/>
+    <databaseTyp str="mssql"/>
+  </database>
+  <twitter>
+    <access_token str="asdoignoiadsibgabsdog"/>
+    <access_token_secret str="dgsagibasdoigbidsabobgo"/>
+  </twitter>
+  <classes>
+    <class str="linksfahrer"/>
+    <class str=" testfahrer"/>
+  </classes>
+</farmer>

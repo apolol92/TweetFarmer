@@ -1,8 +1,12 @@
 package main_window.scenes.main_window_scene_panels;
 
+import farmer_file_manager.FarmerFileConfigData;
+import farmer_file_manager.FarmerFileWriter;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBox;
 
@@ -258,6 +262,14 @@ public class RightPanel extends VBox {
         this.vbClasses.getChildren().addAll(this.lbClasses,this.tfClasses);
         //btCreate
         this.btCreate = new Button(this.BT_FARMER_STR);
+        this.btCreate.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                FarmerFileConfigData farmerFileConfigData = new FarmerFileConfigData(tfName.getText(), tfHashtags.getText(), tfDatabaseIp.getText(), tfDatabaseName.getText(), tfDatabaseName.getText(), tfDatabasePassword.getText(),
+                        tfDatabaseTyp.getText(), tfClasses.getText(), tfTwitterAccessToken.getText(), tfTwitterAccessTokenSecret.getText());
+                FarmerFileWriter farmerFileWriter = new FarmerFileWriter();
+                farmerFileWriter.writeFarmer(farmerFileConfigData);
+            }
+        });
         this.getChildren().addAll(this.lbNewFarmer,this.vbName,this.vbHashtags,this.vbDatabaseIp,this.vbDatabaseName,this.vbDatabaseUsername,this.vbDatabasePassword,this.vbDatabaseTyp,
                 this.vbTwitterAccessToken,this.vbTwitterAccessTokenSecret,this.vbClasses,this.btCreate);
     }
