@@ -10,6 +10,7 @@ import main_window.scenes.main_window_scene_panels.RightPanel;
 
 /**
  * Created by apolol92 on 05.05.2016.
+ * This is the MainWindow Scene. It contains all views.
  */
 public class MainWindowScene extends Scene{
     /**
