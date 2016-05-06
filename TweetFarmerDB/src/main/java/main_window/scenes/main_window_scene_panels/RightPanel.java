@@ -194,10 +194,13 @@ public class RightPanel extends VBox {
      */
     private final String BT_FARMER_STR = "Create Farmer";
 
+    private final LeftPanel leftPanel;
     /**
      * Constructor with init
      */
-    public RightPanel() {
+    public RightPanel(final LeftPanel leftPanel) {
+        //Reference at leftPanel
+        this.leftPanel = leftPanel;
         //New Farmer
         this.lbNewFarmer = new Label(this.LB_NEW_FARMER_STR);
         //Name
@@ -267,7 +270,13 @@ public class RightPanel extends VBox {
                 FarmerFileConfigData farmerFileConfigData = new FarmerFileConfigData(tfName.getText(), tfHashtags.getText(), tfDatabaseIp.getText(), tfDatabaseName.getText(), tfDatabaseName.getText(), tfDatabasePassword.getText(),
                         tfDatabaseTyp.getText(), tfClasses.getText(), tfTwitterAccessToken.getText(), tfTwitterAccessTokenSecret.getText());
                 FarmerFileWriter farmerFileWriter = new FarmerFileWriter();
-                farmerFileWriter.writeFarmer(farmerFileConfigData);
+                //Write Farmer in file system
+                boolean check = farmerFileWriter.writeFarmer(farmerFileConfigData);
+                if(check) {
+                    //TODO: SQL CREATE TABLE
+                    //Update ListView in LeftPanel
+                    leftPanel.update();
+                }
             }
         });
         this.getChildren().addAll(this.lbNewFarmer,this.vbName,this.vbHashtags,this.vbDatabaseIp,this.vbDatabaseName,this.vbDatabaseUsername,this.vbDatabasePassword,this.vbDatabaseTyp,

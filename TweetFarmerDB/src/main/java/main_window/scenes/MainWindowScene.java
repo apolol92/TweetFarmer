@@ -44,7 +44,7 @@ public class MainWindowScene extends Scene{
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle(this.MAIN_WINDOW_SCENE_TITLE_STR);
         this.leftPanel = new LeftPanel();
-        this.rightPanel = new RightPanel();
+        this.rightPanel = new RightPanel(this.leftPanel);
         this.hbLayout.getChildren().addAll(this.leftPanel,this.rightPanel);
         this.primaryStage.setScene(this);
         this.primaryStage.show();

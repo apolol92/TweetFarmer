@@ -1,5 +1,8 @@
 package main_window.scenes.main_window_scene_panels;
 
+import farmer_file_manager.FarmerFileLister;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -43,5 +46,11 @@ public class LeftPanel extends VBox{
         this.lvFarmers = new ListView<String>();
         this.btStartFarmer = new Button(this.BT_START_FARMER_STR);
         this.getChildren().addAll(this.lbFarmers,this.lvFarmers,this.btStartFarmer);
+        this.update();
+    }
+
+    public void update() {
+        ObservableList<String> items = FXCollections.observableArrayList (new FarmerFileLister().listFiles());
+        this.lvFarmers.setItems(items);
     }
 }
