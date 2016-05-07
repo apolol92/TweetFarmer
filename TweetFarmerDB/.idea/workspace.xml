@@ -73,8 +73,8 @@
       <file leaf-file-name="FarmerFileManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/farmer_file_manager/FarmerFileManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+            <state relative-caret-position="255">
+              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -160,7 +160,6 @@
         <option value="$PROJECT_DIR$/src/main/java/main_window/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/farmer_config_file_manager/FarmerConfigWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/farmer_file_manager/FarmerFileData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/farmer_file_manager/FarmerFileManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/farmer_file_manager/FarmerWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/farmer_file_manager/FarmerReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/farmer_file_manager/FarmerFileReader.java" />
@@ -173,6 +172,7 @@
         <option value="$PROJECT_DIR$/src/main/java/sql_manager/SqlManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/farmer_file_manager/FarmerFileConfigData.java" />
         <option value="$PROJECT_DIR$/src/main/java/main_window/scenes/main_window_scene_panels/RightPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/farmer_file_manager/FarmerFileManager.java" />
       </list>
     </option>
   </component>
@@ -1254,12 +1254,12 @@
       <workItem from="1462483160304" duration="8894000" />
       <workItem from="1462520670100" duration="10314000" />
       <workItem from="1462620529800" duration="148000" />
-      <workItem from="1462623296052" duration="3344000" />
+      <workItem from="1462623296052" duration="3609000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22849000" />
+    <option name="totallyTimeSpent" value="23114000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -1635,8 +1635,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/farmer_file_manager/FarmerFileManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+        <state relative-caret-position="255">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
           <folding />
         </state>
       </provider>
