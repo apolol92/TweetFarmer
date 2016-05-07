@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBox;
+import sql_manager.SqlTableCreator;
 
 /**
  * Created by apolol92 on 06.05.2016.
@@ -297,7 +298,12 @@ public class RightPanel extends VBox {
                 //Write Farmer in file system
                 boolean check = farmerFileWriter.writeFarmer(farmerFileConfigData);
                 if(check) {
-                    //TODO: SQL CREATE TABLE
+                    //SQL CREATE TABLE
+                    SqlTableCreator sqlTableCreator = new SqlTableCreator(tfDatabaseIp.getText(), tfDatabasePort.getText(),tfDatabaseName.getText(), tfDatabaseTyp.getText(),tfDatabaseUsername.getText(), tfDatabasePassword.getText(),
+                            tfName.getText());
+                    sqlTableCreator.connectToDatabase();
+                    sqlTableCreator.createTables();
+                    sqlTableCreator.disconnect();
                     //Update ListView in LeftPanel
                     leftPanel.update();
                 }
