@@ -50,7 +50,7 @@ public class LeftPanel extends VBox{
     }
 
     public void update() {
-        ObservableList<String> items = FXCollections.observableArrayList (new FarmerFileLister().listFiles());
+        ObservableList<String> items = FXCollections.observableArrayList (new FarmerFileLister().listFarmers());
         this.lvFarmers.setItems(items);
     }
 }

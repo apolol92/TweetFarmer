@@ -76,6 +76,25 @@ public class RightPanel extends VBox {
     /**
      * This horizontal box will contain lbDatabaseName and tfDatabaseName
      */
+    /**
+     * This horizontal box will contain lbDatabasePort and tfDatabasePort
+     */
+    private VBox vbDatabasePort;
+    /**
+     *  This is the label Database-Port
+     */
+    private Label lbDatabasePort;
+    /**
+     * This constant String contains the text of the lbDatabasePort
+     */
+    private final String LB_DATABASE_PORT_STR = "Database-Port";
+    /**
+     * Enter the Database-Port in this text field
+     */
+    private TextField tfDatabasePort;
+    /**
+     * This horizontal box will contain lbDatabaseName and tfDatabaseName
+     */
     private VBox vbDatabaseName;
     /**
      *  This is the label Database-Name
@@ -218,6 +237,11 @@ public class RightPanel extends VBox {
         this.lbDatabaseIp = new Label(this.LB_DATABASE_IP_STR);
         this.tfDatabaseIp = new TextField();
         this.vbDatabaseIp.getChildren().addAll(this.lbDatabaseIp,this.tfDatabaseIp);
+        //DatabasePort
+        this.vbDatabasePort = new VBox();
+        this.lbDatabasePort = new Label(this.LB_DATABASE_PORT_STR);
+        this.tfDatabasePort = new TextField();
+        this.vbDatabasePort.getChildren().addAll(this.lbDatabasePort,this.tfDatabasePort);
         //DatabaseName
         this.vbDatabaseName = new VBox();
         this.lbDatabaseName = new Label(this.LB_DATABASE_NAME_STR);
@@ -267,7 +291,7 @@ public class RightPanel extends VBox {
         this.btCreate = new Button(this.BT_FARMER_STR);
         this.btCreate.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                FarmerFileConfigData farmerFileConfigData = new FarmerFileConfigData(tfName.getText(), tfHashtags.getText(), tfDatabaseIp.getText(), tfDatabaseName.getText(), tfDatabaseName.getText(), tfDatabasePassword.getText(),
+                FarmerFileConfigData farmerFileConfigData = new FarmerFileConfigData(tfName.getText(), tfHashtags.getText(), tfDatabaseIp.getText(), tfDatabasePort.getText(),tfDatabaseName.getText(), tfDatabaseName.getText(), tfDatabasePassword.getText(),
                         tfDatabaseTyp.getText(), tfClasses.getText(), tfTwitterAccessToken.getText(), tfTwitterAccessTokenSecret.getText());
                 FarmerFileWriter farmerFileWriter = new FarmerFileWriter();
                 //Write Farmer in file system
@@ -279,7 +303,7 @@ public class RightPanel extends VBox {
                 }
             }
         });
-        this.getChildren().addAll(this.lbNewFarmer,this.vbName,this.vbHashtags,this.vbDatabaseIp,this.vbDatabaseName,this.vbDatabaseUsername,this.vbDatabasePassword,this.vbDatabaseTyp,
+        this.getChildren().addAll(this.lbNewFarmer,this.vbName,this.vbHashtags,this.vbDatabaseIp,this.vbDatabasePort,this.vbDatabaseName,this.vbDatabaseUsername,this.vbDatabasePassword,this.vbDatabaseTyp,
                 this.vbTwitterAccessToken,this.vbTwitterAccessTokenSecret,this.vbClasses,this.btCreate);
     }
 

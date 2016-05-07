@@ -28,6 +28,10 @@ public class FarmerFileConfigData {
      * Database-IP
      */
     String databaseip;
+        /**
+     * Database-Port
+     */
+    String databasePort;
     /**
      * Databasename
      */
@@ -134,7 +138,14 @@ public class FarmerFileConfigData {
     }
 
     public void setTwitterAccessTokenSecret(String twitterAccessTokenSecret) {
-        twitterAccessTokenSecret = twitterAccessTokenSecret;
+        this.twitterAccessTokenSecret = twitterAccessTokenSecret;
+    }
+    public String getDatabasePort() {
+        return databasePort;
+    }
+
+    public void setDatabasePort(String databasePort) {
+        this.databasePort = databasePort;
     }
 
     /**
@@ -157,11 +168,12 @@ public class FarmerFileConfigData {
      * @param twitterAccessToken
      * @param twitterAccessTokenSecret
      */
-    public FarmerFileConfigData(String name, String hashtags, String databaseip, String databasename, String databaseUsername, String databasePassword,
+    public FarmerFileConfigData(String name, String hashtags, String databaseip, String databasePort, String databasename, String databaseUsername, String databasePassword,
                                 String databaseTyp, String classes, String twitterAccessToken, String twitterAccessTokenSecret) {
         this.name = name;
         this.hashtags = hashtags.split(",");
         this.databaseip = databaseip;
+        this.databasePort = databasePort;
         this.databasename = databasename;
         this.databaseUsername = databaseUsername;
         this.databasePassword = databasePassword;
@@ -191,6 +203,7 @@ public class FarmerFileConfigData {
             //Database
             Element databaseElement = root.addElement("database");
             Element databaseIpElement = databaseElement.addElement("ip").addAttribute("str",this.getDatabaseip());
+            Element databasePort = databaseElement.addElement("port").addAttribute("str",this.getDatabasePort());
             Element databasename = databaseElement.addElement("name").addAttribute("str",this.getDatabasename());
             Element databaseUsername = databaseElement.addElement("username").addAttribute("str",this.getDatabaseUsername());
             Element databasePassword = databaseElement.addElement("password").addAttribute("str",this.getDatabasePassword());
@@ -255,24 +268,27 @@ public class FarmerFileConfigData {
                         farmerFileConfigData.setDatabaseip(node.valueOf("@str"));
                         break;
                     case 3:
-                        farmerFileConfigData.setDatabasename(node.valueOf("@str"));
+                        farmerFileConfigData.setDatabasePort(node.valueOf("@str"));
                         break;
                     case 4:
-                        farmerFileConfigData.setDatabaseUsername(node.valueOf("@str"));
+                        farmerFileConfigData.setDatabasename(node.valueOf("@str"));
                         break;
                     case 5:
-                        farmerFileConfigData.setDatabasePassword(node.valueOf("@str"));
+                        farmerFileConfigData.setDatabaseUsername(node.valueOf("@str"));
                         break;
                     case 6:
-                        farmerFileConfigData.setDatabaseTyp(node.valueOf("@str"));
+                        farmerFileConfigData.setDatabasePassword(node.valueOf("@str"));
                         break;
                     case 7:
-                        farmerFileConfigData.setTwitterAccessToken(node.valueOf("@str"));
+                        farmerFileConfigData.setDatabaseTyp(node.valueOf("@str"));
                         break;
                     case 8:
-                        farmerFileConfigData.setTwitterAccessTokenSecret(node.valueOf("@str"));
+                        farmerFileConfigData.setTwitterAccessToken(node.valueOf("@str"));
                         break;
                     case 9:
+                        farmerFileConfigData.setTwitterAccessTokenSecret(node.valueOf("@str"));
+                        break;
+                    case 10:
                         //farmerFileConfigData.setClasses(node.valueOf("@str"));
                         List<Node> classes = node.selectNodes("/hashtags");
                         String[] cs = new String[classes.size()];
