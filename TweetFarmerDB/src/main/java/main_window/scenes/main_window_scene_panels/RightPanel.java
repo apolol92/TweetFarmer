@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBox;
+import sql_manager.SqlInserter;
 import sql_manager.SqlTableCreator;
 
 /**
@@ -176,6 +177,38 @@ public class RightPanel extends VBox {
     /**
      * This horizontal box will contain lbDatabasePassword and tfDatabaseTyp
      */
+    private VBox vbTwitterConsumerKey;
+    /**
+     *  This is the label Twitter-Token
+     */
+    private Label lbTwitterConsumerKey;
+    /**
+     * This constant String contains the text of the lbTwitterToken
+     */
+    private final String LB_TWITTER_CONSUMER_KEY_STR = "Twitter-Consumer-Key";
+    /**
+     * This text field will contain the twitter key
+     */
+    private TextField tfTwitterConsumerKey;
+    /**
+     * This horizontal box will contain lbDatabasePassword and tfDatabaseTyp
+     */
+    private VBox vbTwitterConsumerSecret;
+    /**
+     *  This is the label Twitter-Token
+     */
+    private Label lbTwitterConsumerSecret;
+    /**
+     * This constant String contains the text of the lbTwitterToken
+     */
+    private final String LB_TWITTER_CONSUMER_SECRET_STR = "Twitter-Consumer-Secret";
+    /**
+     * This text field will contain the twitter key
+     */
+    private TextField tfTwitterConsumerSecret;
+    /**
+     * This horizontal box will contain lbDatabasePassword and tfDatabaseTyp
+     */
     private VBox vbTwitterAccessTokenSecret;
     /**
      *  This is the label Twitter-Token
@@ -273,6 +306,16 @@ public class RightPanel extends VBox {
         this.lbDatabaseTyp = new Label(this.LB_DATABASE_TYP_STR);
         this.tfDatabaseTyp = new TextField();
         this.vbDatabaseTyp.getChildren().addAll(this.lbDatabaseTyp,this.tfDatabaseTyp);
+        //TwitterConsumerKey
+        this.vbTwitterConsumerKey = new VBox();
+        this.lbTwitterConsumerKey = new Label(this.LB_TWITTER_CONSUMER_KEY_STR);
+        this.tfTwitterConsumerKey = new TextField();
+        this.vbTwitterConsumerKey.getChildren().addAll(this.lbTwitterConsumerKey,this.tfTwitterConsumerKey);
+        //TwitterConsumerSecret
+        this.vbTwitterConsumerSecret = new VBox();
+        this.lbTwitterConsumerSecret = new Label(this.LB_TWITTER_CONSUMER_SECRET_STR);
+        this.tfTwitterConsumerSecret = new TextField();
+        this.vbTwitterConsumerSecret.getChildren().addAll(this.lbTwitterConsumerSecret,this.tfTwitterConsumerSecret);
         //TwitterAccessToken
         this.vbTwitterAccessToken = new VBox();
         this.lbTwitterAccessToken = new Label(this.LB_TWITTER_ACCESS_TOKEN_STR);
@@ -293,7 +336,7 @@ public class RightPanel extends VBox {
         this.btCreate.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 FarmerFileConfigData farmerFileConfigData = new FarmerFileConfigData(tfName.getText(), tfHashtags.getText(), tfDatabaseIp.getText(), tfDatabasePort.getText(),tfDatabaseName.getText(), tfDatabaseName.getText(), tfDatabasePassword.getText(),
-                        tfDatabaseTyp.getText(), tfClasses.getText(), tfTwitterAccessToken.getText(), tfTwitterAccessTokenSecret.getText());
+                        tfDatabaseTyp.getText(), tfClasses.getText(), tfTwitterConsumerKey.getText(),tfTwitterConsumerSecret.getText(),tfTwitterAccessToken.getText(), tfTwitterAccessTokenSecret.getText());
                 FarmerFileWriter farmerFileWriter = new FarmerFileWriter();
                 //Write Farmer in file system
                 boolean check = farmerFileWriter.writeFarmer(farmerFileConfigData);
@@ -304,13 +347,17 @@ public class RightPanel extends VBox {
                     sqlTableCreator.connectToDatabase();
                     sqlTableCreator.createTables();
                     sqlTableCreator.disconnect();
+                    SqlInserter sqlInserter = new SqlInserter(tfDatabaseIp.getText(), tfDatabasePort.getText(),tfDatabaseName.getText(), tfDatabaseTyp.getText(),tfDatabaseUsername.getText(), tfDatabasePassword.getText());
+                    sqlInserter.connectToDatabase();
+                    sqlInserter.insertClasses(tfName.getText(),farmerFileConfigData.getClasses());
+                    sqlInserter.disconnect();
                     //Update ListView in LeftPanel
                     leftPanel.update();
                 }
             }
         });
         this.getChildren().addAll(this.lbNewFarmer,this.vbName,this.vbHashtags,this.vbDatabaseIp,this.vbDatabasePort,this.vbDatabaseName,this.vbDatabaseUsername,this.vbDatabasePassword,this.vbDatabaseTyp,
-                this.vbTwitterAccessToken,this.vbTwitterAccessTokenSecret,this.vbClasses,this.btCreate);
+                this.vbTwitterConsumerKey,this.vbTwitterConsumerSecret,this.vbTwitterAccessToken,this.vbTwitterAccessTokenSecret,this.vbClasses,this.btCreate);
     }
 
 

@@ -28,11 +28,11 @@ public class SqlTableCreator extends SqlManager {
         try {
             Statement mStmt = super.connection.createStatement();
             String sqlFarmerClasses = "CREATE TABLE IF NOT EXISTS "+ this.farmerName +"_Classes"+
-                    "(id INTEGER NOT NULL, " +
+                    "(id BIGINT NOT NULL, " +
                     " classes TEXT, " +
                     " PRIMARY KEY ( id ))";
             String sqlFarmerText = "CREATE TABLE IF NOT EXISTS "+this.farmerName+"_Text " +
-                    "(id INTEGER NOT NULL, " +
+                    "(id BIGINT NOT NULL, " +
                     " content TEXT, " +
                     " class_id INTEGER, "+
                     " PRIMARY KEY ( id ))";

@@ -4,6 +4,7 @@ import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.jdom2.input.SAXBuilder;
 
 
 import java.io.*;
@@ -48,6 +49,15 @@ public class FarmerFileConfigData {
      * Database-Typ
      */
     String databaseTyp;
+
+    /**
+     * Twitter-Consumer-Key
+     */
+    String twitterConsumerKey;
+    /**
+     * Twitter-Consumer-Secret
+     */
+    String twitterConsumerSecret;
     /**
      * Twitter-Access-Token
      */
@@ -124,6 +134,21 @@ public class FarmerFileConfigData {
     public void setDatabaseTyp(String databaseTyp) {
         this.databaseTyp = databaseTyp;
     }
+    public String getTwitterConsumerKey() {
+        return twitterConsumerKey;
+    }
+
+    public void setTwitterConsumerKey(String twitterConsumerKey) {
+        this.twitterConsumerKey = twitterConsumerKey;
+    }
+
+    public String getTwitterConsumerSecret() {
+        return twitterConsumerSecret;
+    }
+
+    public void setTwitterConsumerSecret(String twitterConsumerSecret) {
+        this.twitterConsumerSecret = twitterConsumerSecret;
+    }
 
     public String getTwitterAccessToken() {
         return twitterAccessToken;
@@ -165,11 +190,13 @@ public class FarmerFileConfigData {
      * @param databasePassword
      * @param databaseTyp
      * @param classes
+     * @param twitterTwitterConsumerKey
+     * @param twitterTwitterConsumerSecret
      * @param twitterAccessToken
      * @param twitterAccessTokenSecret
      */
     public FarmerFileConfigData(String name, String hashtags, String databaseip, String databasePort, String databasename, String databaseUsername, String databasePassword,
-                                String databaseTyp, String classes, String twitterAccessToken, String twitterAccessTokenSecret) {
+                                String databaseTyp, String classes, String twitterTwitterConsumerKey,String twitterTwitterConsumerSecret, String twitterAccessToken, String twitterAccessTokenSecret) {
         this.name = name;
         this.hashtags = hashtags.split(",");
         this.databaseip = databaseip;
@@ -179,6 +206,8 @@ public class FarmerFileConfigData {
         this.databasePassword = databasePassword;
         this.databaseTyp = databaseTyp;
         this.classes = classes.split(",");
+        this.twitterConsumerKey = twitterTwitterConsumerKey;
+        this.twitterConsumerSecret = twitterTwitterConsumerSecret;
         this.twitterAccessToken = twitterAccessToken;
         this.twitterAccessTokenSecret = twitterAccessTokenSecret;
     }
@@ -210,6 +239,8 @@ public class FarmerFileConfigData {
             Element databaseTyp = databaseElement.addElement("databaseTyp").addAttribute("str",this.getDatabaseTyp());
             //Twitter
             Element twitterElement = root.addElement("twitter");
+            Element twitterConsumerKey = twitterElement.addElement("consumer_key").addAttribute("str",this.getTwitterConsumerKey());
+            Element twitterConsumerSecret = twitterElement.addElement("consumer_secret").addAttribute("str",this.getTwitterConsumerSecret());
             Element twitterAccessToken = twitterElement.addElement("access_token").addAttribute("str",this.getTwitterAccessToken());
             Element twitterAccessTokenSecret = twitterElement.addElement("access_token_secret").addAttribute("str",this.getTwitterAccessTokenSecret());
             //Classes
@@ -241,71 +272,64 @@ public class FarmerFileConfigData {
         try {
             FarmerFileConfigData farmerFileConfigData = new FarmerFileConfigData();
             File inputFile = new File(path);
-            SAXReader reader = new SAXReader();
-            Document document = reader.read( inputFile );
+            SAXBuilder saxBuilder = new SAXBuilder();
+            org.jdom2.Document document = saxBuilder.build(inputFile);
 
-            Element classElement = document.getRootElement();
+            org.jdom2.Element classElement = document.getRootElement();
+            List<org.jdom2.Element> nodes = classElement.getChildren();
 
-            List<Node> nodes = document.selectNodes("/farmer" );
+            farmerFileConfigData.setName(document.getRootElement().getAttribute("name").getValue());
             int i = 0;
-            for (Node node : nodes) {
-                switch (i) {
+            for (org.jdom2.Element node : nodes) {
+                switch(i) {
                     case 0:
-                        farmerFileConfigData.setName(node.valueOf("@str"));
-                        break;
-                    case 1:
-                        //farmerFileConfigData.set(node.valueOf("@str"));
-                        List<Node> hashtags = node.selectNodes("/hashtags");
-                        String[] hts = new String[hashtags.size()];
-                        int d = 0;
-                        for(Node hNode : hashtags) {
-                            hts[d] = hNode.valueOf("@str");
-                            d++;
+                        //Hashtags
+                        List<org.jdom2.Element> supNodes = node.getChildren();
+                        String[] hts = new String[node.getChildren().size()];
+                        for(int d = 0; d < supNodes.size(); d++) {
+                            hts[d] = supNodes.get(d).getAttribute("str").getValue();
                         }
                         farmerFileConfigData.setHashtags(hts);
                         break;
+                    case 1:
+                        //Database
+                        List<org.jdom2.Element> supNodes2 = node.getChildren();
+                        farmerFileConfigData.setDatabaseip(supNodes2.get(0).getAttribute("str").getValue());
+                        farmerFileConfigData.setDatabasePort(supNodes2.get(1).getAttribute("str").getValue());
+                        farmerFileConfigData.setDatabasename(supNodes2.get(2).getAttribute("str").getValue());
+                        farmerFileConfigData.setDatabaseUsername(supNodes2.get(3).getAttribute("str").getValue());
+                        farmerFileConfigData.setDatabasePassword(supNodes2.get(4).getAttribute("str").getValue());
+                        farmerFileConfigData.setDatabaseTyp(supNodes2.get(5).getAttribute("str").getValue());
+                        break;
                     case 2:
-                        farmerFileConfigData.setDatabaseip(node.valueOf("@str"));
+                        //Twitter
+                        List<org.jdom2.Element> supNodes3 = node.getChildren();
+                        farmerFileConfigData.setTwitterConsumerKey(supNodes3.get(0).getAttribute("str").getValue());
+                        farmerFileConfigData.setTwitterConsumerSecret(supNodes3.get(1).getAttribute("str").getValue());
+                        farmerFileConfigData.setTwitterAccessToken(supNodes3.get(2).getAttribute("str").getValue());
+                        farmerFileConfigData.setTwitterAccessTokenSecret(supNodes3.get(3).getAttribute("str").getValue());
                         break;
                     case 3:
-                        farmerFileConfigData.setDatabasePort(node.valueOf("@str"));
-                        break;
-                    case 4:
-                        farmerFileConfigData.setDatabasename(node.valueOf("@str"));
-                        break;
-                    case 5:
-                        farmerFileConfigData.setDatabaseUsername(node.valueOf("@str"));
-                        break;
-                    case 6:
-                        farmerFileConfigData.setDatabasePassword(node.valueOf("@str"));
-                        break;
-                    case 7:
-                        farmerFileConfigData.setDatabaseTyp(node.valueOf("@str"));
-                        break;
-                    case 8:
-                        farmerFileConfigData.setTwitterAccessToken(node.valueOf("@str"));
-                        break;
-                    case 9:
-                        farmerFileConfigData.setTwitterAccessTokenSecret(node.valueOf("@str"));
-                        break;
-                    case 10:
-                        //farmerFileConfigData.setClasses(node.valueOf("@str"));
-                        List<Node> classes = node.selectNodes("/hashtags");
-                        String[] cs = new String[classes.size()];
-                        int e = 0;
-                        for(Node cNode : classes) {
-                            cs[e] = cNode.valueOf("@str");
-                            e++;
+                        //Classes
+                        List<org.jdom2.Element> supNodes4 = node.getChildren();
+                        String[] hts2 = new String[node.getChildren().size()];
+                        for(int d = 0; d < supNodes4.size(); d++) {
+                            hts2[d] = supNodes4.get(d).getAttribute("str").getValue();
+                            System.out.println(hts2[d]);
                         }
-                        farmerFileConfigData.setClasses(cs);
+                        farmerFileConfigData.setClasses(hts2);
                         break;
                 }
                 i++;
+
             }
             return farmerFileConfigData;
-        } catch (DocumentException e) {
+        } catch (Exception e) {
+            System.out.println("FEEEEEEHLER!!!!!!!!!!!!!!!!");
             e.printStackTrace();
             return null;
         }
     }
+
+
 }

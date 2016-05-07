@@ -1,11 +1,14 @@
 package main_window.scenes.main_window_scene_panels;
 
 import farmer_file_manager.FarmerFileLister;
+import farmer_window.FarmerWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 /**
@@ -45,6 +48,12 @@ public class LeftPanel extends VBox{
         this.lbFarmers = new Label(this.LB_FARMERS_STR);
         this.lvFarmers = new ListView<String>();
         this.btStartFarmer = new Button(this.BT_START_FARMER_STR);
+        this.btStartFarmer.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                FarmerWindow mFarmerWindow = new FarmerWindow();
+                mFarmerWindow.create(lvFarmers.getSelectionModel().getSelectedItem());
+            }
+        });
         this.getChildren().addAll(this.lbFarmers,this.lvFarmers,this.btStartFarmer);
         this.update();
     }
