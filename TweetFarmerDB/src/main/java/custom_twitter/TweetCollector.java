@@ -45,19 +45,17 @@ public class TweetCollector {
         Query query = new Query(tag);
         QueryResult result;
         try {
-            do {
-                result = twitter.search(query);
-                List<Status> tweets = result.getTweets();
-                System.out.println("sdafadsfadsfasdfasdfadsfasdf " + this.dbTweets.size());
-                for (Status tweet : tweets) {
-                    if (!Tweet.containsId(this.dbTweets, tweet.getId())&&!Tweet.containsId(tweetList, tweet.getId())) {
-                        System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
-                        tweetList.add(new Tweet(tweet.getId(), tweet.getText()));
+            result = twitter.search(query);
+            List<Status> tweets = result.getTweets();
+            System.out.println("sdafadsfadsfasdfasdfadsfasdf " + this.dbTweets.size());
+            for (Status tweet : tweets) {
+                if (!Tweet.containsId(this.dbTweets, tweet.getId())&&!Tweet.containsId(tweetList, tweet.getId())) {
+                    System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+                    tweetList.add(new Tweet(tweet.getId(), tweet.getText()));
 
-                    }
                 }
             }
-            while(tweetList.size()<30);
+
             return tweetList;
         } catch (TwitterException e) {
             e.printStackTrace();

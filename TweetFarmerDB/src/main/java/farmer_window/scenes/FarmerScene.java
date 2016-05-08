@@ -4,6 +4,7 @@ import custom_twitter.Tweet;
 import custom_twitter.TweetCollector;
 import farmer_file_manager.FarmerFileConfigData;
 import farmer_file_manager.FarmerFileReader;
+import farmer_window.scenes.farmer_windw_scene_panels.LeftPanel;
 import farmer_window.scenes.farmer_windw_scene_panels.RightPanel;
 import javafx.beans.NamedArg;
 import javafx.scene.Parent;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
  * Created by apolol92 on 07.05.2016.
  */
 public class FarmerScene extends Scene {
+    private LeftPanel leftPanel;
     /**
      * This is the main layout for this scene
      */
@@ -52,8 +54,9 @@ public class FarmerScene extends Scene {
         TweetCollector tCollector = new TweetCollector(this.farmerFileConfigData,this.dbTweets);
         this.tweets = tCollector.getFirstTweets();
         this.rightPanel = new RightPanel(this.dbTweets,this.tweets,this.farmerFileConfigData);
+        this.leftPanel = new LeftPanel(this.dbTweets);
         this.hbLayout = (HBox)getRoot();
-        this.hbLayout.getChildren().addAll(this.rightPanel);
+        this.hbLayout.getChildren().addAll(this.leftPanel,this.rightPanel);
         this.stage = stage;
         this.stage.setScene(this);
         this.stage.show();
