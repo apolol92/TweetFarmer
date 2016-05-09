@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<farmer name="FeuerFeuerNicht">
+  <hashtags>
+    <hashtag str="feuer"/>
+    <hashtag str="kein_feuer"/>
+  </hashtags>
+  <localfile str="true"/>
+  <database str="true">
+    <ip str="127.0.0.1"/>
+    <port str="5432"/>
+    <name str="farmer_test"/>
+    <username str="postgres"/>
+    <password str="x8xtvu"/>
+    <databaseTyp str="postgresql"/>
+  </database>
+  <classes>
+    <class str="feuermeldung"/>
+    <class str="keine"/>
+  </classes>
+</farmer>
