@@ -1,6 +1,9 @@
 package menu_window.scenes.panels;
 
+import database_config_window.ConfigWindow;
 import global.Global;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -77,6 +80,16 @@ public class NewFarmerPanel extends VBox {
         this.cbLocalStorage = new CheckBox("Local Storage");
         this.cbLocalStorage.setFont(new Font(Global.FONT_FAMILY,Global.NORMAL_TEXT_SIZE));
         this.cbDatabaseStorage = new CheckBox("Database Storage");
+        this.cbDatabaseStorage.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(newValue) {
+                    //Open Database Config
+                    ConfigWindow configWindow = new ConfigWindow();
+
+                }
+            }
+        });
         this.cbDatabaseStorage.setFont(new Font(Global.FONT_FAMILY,Global.NORMAL_TEXT_SIZE));
         this.btCreateNewFarmer = new Button("New Farmer");
         this.btCreateNewFarmer.setFont(new Font(Global.FONT_FAMILY,Global.NORMAL_TEXT_SIZE));

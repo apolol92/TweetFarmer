@@ -983,7 +983,7 @@
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TweetFarmer" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -1497,15 +1497,15 @@
       <workItem from="1462623296052" duration="36688000" />
       <workItem from="1462698428579" duration="1573000" />
       <workItem from="1462824698059" duration="5167000" />
-      <workItem from="1462905055288" duration="1597000" />
+      <workItem from="1462905055288" duration="2200000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64530000" />
+    <option name="totallyTimeSpent" value="65133000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1288" y="-8" width="1296" height="1010" extended-state="7" />
+    <frame x="-1288" y="-8" width="1296" height="1010" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
