@@ -3,6 +3,7 @@ package main;
 import farmer_file_manager.TwitterConfigData;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import menu_window.MenuWindow;
 import setup_window.SetupWindow;
 
 
@@ -25,6 +26,7 @@ public class Program extends Application {
     public void start(Stage primaryStage) throws Exception {
         if(TwitterConfigData.fileExists()) {
             //Menu Window
+            MenuWindow menuWindow = new MenuWindow(primaryStage);
         }
         else {
             //Setup Window

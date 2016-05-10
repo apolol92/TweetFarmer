@@ -134,7 +134,7 @@ public class TwitterConfigData {
     public static boolean fileExists() {
         File f = new File(TWITTER_CONFIG_PATH);
         if(f.exists()) {
-            return false;
+            return true;
         }
         else{
             return false;

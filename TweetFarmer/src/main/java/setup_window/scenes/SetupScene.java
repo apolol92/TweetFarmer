@@ -20,6 +20,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import menu_window.MenuWindow;
 
 import static global.Global.FONT_FAMILY;
 
@@ -162,6 +163,7 @@ public class SetupScene extends Scene {
             @Override
             public void handle(MouseEvent event) {
                 TwitterConfigData.writeTwitterConfigData(tfTwitterConsumerKey.getText(),tfTwitterConsumerSecret.getText(),tfTwitterAccessToken.getText(),tfTwitterAccessTokenSecret.getText());
+                MenuWindow menuWindow = new MenuWindow(stage);
             }
         });
         this.vbLayout.getChildren().addAll(this.lbJustMoment,this.lbDescription,this.lbTwitterAccess,this.lbTwitterConsumerKey,
