@@ -1,5 +1,8 @@
 package menu_window.scenes;
 
+import file_manager.FileManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -35,7 +38,7 @@ public class MenuScene extends Scene {
         this.hbLayout = (HBox)getRoot();
         this.hbLayout.setPadding(new Insets(10,10,10,10));
         this.loadFarmerPanel = new LoadFarmerPanel();
-        this.newFarmerPanel = new NewFarmerPanel();
+        this.newFarmerPanel = new NewFarmerPanel(this);
         this.hbLayout.getChildren().addAll(loadFarmerPanel,newFarmerPanel);
         this.stage = stage;
         this.stage.setTitle("TweetFarmer - Menu");
@@ -44,4 +47,11 @@ public class MenuScene extends Scene {
     }
 
 
+    /**
+     * Update this scene
+     */
+    public void update() {
+        ObservableList<String> items = FXCollections.observableArrayList (FileManager.listFarmers());
+        this.loadFarmerPanel.lvFarmers.setItems(items);
+    }
 }

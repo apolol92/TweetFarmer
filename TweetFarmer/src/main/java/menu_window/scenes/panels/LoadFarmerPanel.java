@@ -24,7 +24,7 @@ public class LoadFarmerPanel extends VBox{
     /**
      * ListView which contains all Farmers
      */
-    private ListView<String> lvFarmers;
+    public ListView<String> lvFarmers;
     /**
      * Just the Headline of LoadFarmerPanel
      */

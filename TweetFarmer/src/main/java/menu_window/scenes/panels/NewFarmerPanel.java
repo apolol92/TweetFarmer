@@ -1,24 +1,31 @@
 package menu_window.scenes.panels;
 
+import database.DatabaseConfigData;
 import database_config_window.ConfigWindow;
+import file_manager.FileManager;
 import global.Global;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import menu_window.scenes.MenuScene;
 
 /**
  * Created by apolol92 on 10.05.2016.
  * This class is used for showing the user create new farmer
  */
 public class NewFarmerPanel extends VBox {
+    /**
+     * DatabaseConfigData
+     */
+    DatabaseConfigData databaseConfigData;
     /**
      * Textfield for FarmerName
      */
@@ -60,8 +67,9 @@ public class NewFarmerPanel extends VBox {
      */
     private Label lbNewFarmer;
 
-    public NewFarmerPanel() {
+    public NewFarmerPanel(MenuScene menuScene) {
         super();
+        this.databaseConfigData = null;
         this.setPadding(new Insets(0,50,0,10));
         this.lbNewFarmer = new Label("New Farmer");
         this.lbNewFarmer.setFont(new Font(Global.FONT_FAMILY,24));
@@ -84,8 +92,9 @@ public class NewFarmerPanel extends VBox {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(newValue) {
+                    databaseConfigData = new DatabaseConfigData();
                     //Open Database Config
-                    ConfigWindow configWindow = new ConfigWindow();
+                    ConfigWindow configWindow = new ConfigWindow(databaseConfigData);
 
                 }
             }
@@ -93,6 +102,19 @@ public class NewFarmerPanel extends VBox {
         this.cbDatabaseStorage.setFont(new Font(Global.FONT_FAMILY,Global.NORMAL_TEXT_SIZE));
         this.btCreateNewFarmer = new Button("New Farmer");
         this.btCreateNewFarmer.setFont(new Font(Global.FONT_FAMILY,Global.NORMAL_TEXT_SIZE));
+        this.btCreateNewFarmer.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                FileManager fileManager = new FileManager(tfFarmerName.getText());
+                if(!cbDatabaseStorage.isSelected()) {
+                    databaseConfigData = null;
+                }
+                if(fileManager.write_farmer(tfHashtags.getText().split(","),databaseConfigData,tfClasses.getText().split(","),
+                        cbLocalStorage.isSelected())) {
+                        menuScene.update();
+                }
+            }
+        });
         this.getChildren().addAll(this.lbNewFarmer,this.lbFarmerName,this.tfFarmerName,this.lbHashtags,this.tfHashtags,
                 this.lbClasses,this.tfClasses,this.cbLocalStorage,this.cbDatabaseStorage,this.btCreateNewFarmer);
     }

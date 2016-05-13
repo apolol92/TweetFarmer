@@ -5,8 +5,12 @@
     <hashtag str="feuer"/>
     <hashtag str="kein_feuer"/>
   </hashtags>
-  <localfile str="true"/>
-  <database str="true">
+  <localfile str="1"/>
+  <classes>
+    <class str="feuermeldung"/>
+    <class str="keine"/>
+  </classes>
+  <database str="1">
     <ip str="127.0.0.1"/>
     <port str="5432"/>
     <name str="farmer_test"/>
@@ -14,8 +18,4 @@
     <password str="x8xtvu"/>
     <databaseTyp str="postgresql"/>
   </database>
-  <classes>
-    <class str="feuermeldung"/>
-    <class str="keine"/>
-  </classes>
 </farmer>

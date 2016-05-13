@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<farmer name="TestFarmer01">
+  <hashtags>
+    <hashtag str="test1"/>
+    <hashtag str="test2"/>
+    <hashtag str="test3"/>
+  </hashtags>
+  <localStorage str="1"/>
+  <classes>
+    <class str="tester"/>
+    <class str="not"/>
+  </classes>
+  <database str="0"/>
+</farmer>
