@@ -16,6 +16,10 @@ import main.Program;
  */
 public class TweetViewPanel extends GridPane {
     /**
+     * Name of current Farmer
+     */
+    private String farmername;
+    /**
      * Place Holder till Twitter-Pofil-Image
      */
     private Button btImageTest;
@@ -43,7 +47,8 @@ public class TweetViewPanel extends GridPane {
     /**
      * Cronstructor for building TweetViewPanel
      */
-    public TweetViewPanel() {
+    public TweetViewPanel(String farmername) {
+        this.farmername = farmername;
         //Image img = new Image(getClass().getResource("dummy_profil.png").toExternalForm());
         //this.ivProfil = new ImageView(Program.class.getResource("dummy_profil.png").toExternalForm());
         //this.ivProfil.setImage(img);

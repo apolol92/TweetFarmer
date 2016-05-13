@@ -43,8 +43,8 @@ public class LoadFarmerPanel extends VBox{
         this.btStartFarmer.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //TODO: Farmer Window
-                FarmerWindow farmerWindow = new FarmerWindow();
+                //Open FarmerWindow
+                FarmerWindow farmerWindow = new FarmerWindow(lvFarmers.getSelectionModel().getSelectedItem().toString());
             }
         });
         this.getChildren().addAll(this.lbFarmers, this.lvFarmers,this.btStartFarmer);

@@ -9,15 +9,21 @@ import javafx.stage.Stage;
  */
 public class FarmerWindow {
     /**
+     * Name of current Farmer
+     */
+    private String farmername;
+    /**
      * Stage of Farmer
      */
     private Stage stage;
 
     /**
      * Constructor of FarmerWindow
+     * @param s
      */
-    public FarmerWindow() {
+    public FarmerWindow(String s) {
+        this.farmername = s;
         this.stage = new Stage();
-        FarmerScene farmerScene = new FarmerScene(stage);
+        FarmerScene farmerScene = new FarmerScene(stage,this.farmername);
     }
 }

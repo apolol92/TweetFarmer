@@ -13,6 +13,13 @@ import javafx.stage.Stage;
  * Users work mostly with this scene.
  */
 public class FarmerScene extends Scene {
+    /**
+     * Name of current Farmer
+     */
+    private String farmername;
+    /**
+     * TweetView-Panel
+     */
     private TweetViewPanel tweetViewPanel;
     /**
      * The layout of scene
@@ -31,11 +38,12 @@ public class FarmerScene extends Scene {
      * Constrcuts the Farmer Scene
      * @param stage
      */
-    public FarmerScene(Stage stage) {
+    public FarmerScene(Stage stage, String farmername) {
         super(new HBox());
+        this.farmername = farmername;
         this.hbLayout = (HBox)this.getRoot();
         this.farmerMenuPanel = new FarmerMenuPanel();
-        this.tweetViewPanel = new TweetViewPanel();
+        this.tweetViewPanel = new TweetViewPanel(this.farmername);
         this.hbLayout.getChildren().addAll(this.farmerMenuPanel,this.tweetViewPanel);
         this.stage = stage;
         this.stage.setScene(this);
