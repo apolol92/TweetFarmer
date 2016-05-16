@@ -33,6 +33,16 @@ public class FileManager {
         }
     }
 
+    public FarmerConfig readFarmer(String farmername) {
+        File farmerFolder = new File(this.FARMERS_PATH+this.farmername);
+        if(farmerFolder.exists()) {
+            return new FarmerConfigReader().read(farmername);
+        }
+        else {
+            return null;
+        }
+    }
+
     /**
      * This method collect all farmers
      * @return all farmers

@@ -8,6 +8,15 @@ import java.util.ArrayList;
  * Tweet-ID, Tweet-Text, perhaps a class(if it was classified before)
  */
 public class Tweet {
+    public String getProfilImageUrl() {
+        return profilImageUrl;
+    }
+
+    public void setProfilImageUrl(String profilImageUrl) {
+        this.profilImageUrl = profilImageUrl;
+    }
+
+    private String profilImageUrl;
     private String screenname;
     private String username;
     private String date;
@@ -61,7 +70,7 @@ public class Tweet {
      * @param id
      * @param text
      */
-    public Tweet(long id, String username, String screenname, String date, String text, int retweets, int likes) {
+    public Tweet(long id, String username, String screenname, String date, String text, int retweets, int likes, String profilImageUrl) {
         this.id = id;
         this.username = username;
         this.screenname = screenname;
@@ -69,6 +78,7 @@ public class Tweet {
         this.text = text;
         this.retweets = retweets;
         this.likes = likes;
+        this.profilImageUrl = profilImageUrl;
     }
 
     public Tweet(Tweet t) {
@@ -80,6 +90,7 @@ public class Tweet {
         this.cl = t.cl;
         this.retweets = t.retweets;
         this.likes = t.likes;
+        this.profilImageUrl = t.profilImageUrl;
     }
 
     public int getLikes() {

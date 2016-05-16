@@ -113,7 +113,7 @@ public class TweetHistoryReceiver {
                 List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
                     if(!Tweet.containsId(this.historyTweets,tweet.getId())) {
-                        nTweets.add(new Tweet(tweet.getId(), tweet.getUser().getName(), tweet.getUser().getScreenName(), tweet.getUser().getCreatedAt().toString(), tweet.getText(),tweet.getRetweetCount(),tweet.getFavoriteCount()));
+                        nTweets.add(new Tweet(tweet.getId(), tweet.getUser().getName(), tweet.getUser().getScreenName(), tweet.getUser().getCreatedAt().toString(), tweet.getText(),tweet.getRetweetCount(),tweet.getFavoriteCount(),tweet.getUser().getProfileImageURL()));
                         System.out.println(tweet.getId()+ ":" + tweet.getUser().getName()+":"+tweet.getText()+":"+tweet.getRetweetCount()+":"+tweet.getFavoriteCount());
                     }
                 }
