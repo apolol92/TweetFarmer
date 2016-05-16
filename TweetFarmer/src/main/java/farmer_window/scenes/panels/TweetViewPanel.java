@@ -121,8 +121,9 @@ public class TweetViewPanel extends GridPane {
             btClasses.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
+                    currentTweets.get(0).setCl(btClasses.getText());
                     //TODO: ADD TWEET TO DATABASE
-                    //TODO: ADD TWEET TO LOCAL STORAGE
+                    //ADD TWEET TO LOCAL STORAGE
                     LocalStorager.insertTweet(farmername,currentTweets.get(0));
                     //Remove tweet from currentTweets
                     if(currentTweets.size()>1) {
@@ -138,6 +139,7 @@ public class TweetViewPanel extends GridPane {
                     lbDate.setText(currentTweets.get(0).getDate());
                     lbTweetText.setText(currentTweets.get(0).getText());
                     ivProfil.setImage(new Image(currentTweets.get(0).getProfilImageUrl()));
+                    System.out.println(LocalStorager.readAllTweetsFromLocal(farmername).get(LocalStorager.readAllTweetsFromLocal(farmername).size()-1).getScreenname());
                 }
             });
             add(btClasses,i,3);

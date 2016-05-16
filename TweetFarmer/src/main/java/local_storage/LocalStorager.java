@@ -14,6 +14,8 @@ import org.jdom2.output.XMLOutputter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.InterruptedIOException;
+import java.util.ArrayList;
 
 /**
  * Created by apolol92 on 16.05.2016.
@@ -44,6 +46,10 @@ public class LocalStorager {
         try {
             Element tweetsNode = new Element("tweets");
             Element tNode = new Element("tweet");
+            //ID Element
+            Element idElement = new Element("Id");
+            idElement.setText(tweet.getId()+"");
+            tNode.addContent(idElement);
             //Username Element
             Element usernameElement = new Element("Username");
             usernameElement.setText(tweet.getUsername());
@@ -96,6 +102,10 @@ public class LocalStorager {
             Document document = saxBuilder.build(inputFile);
             Element rootElement = document.getRootElement();
             Element tNode = new Element("tweet");
+            //ID Element
+            Element idElement = new Element("Id");
+            idElement.setText(tweet.getId()+"");
+            tNode.addContent(idElement);
             //Username Element
             Element usernameElement = new Element("Username");
             usernameElement.setText(tweet.getUsername());
@@ -135,5 +145,36 @@ public class LocalStorager {
         catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * Read all tweets from local file system
+     * @param farmername
+     * @return
+     */
+    public static ArrayList<Tweet> readAllTweetsFromLocal(String farmername) {
+        ArrayList<Tweet> tweets = new ArrayList<>();
+        try {
+            File inputFile = new File(FileManager.FARMERS_PATH+farmername+"/tweets.xml");
+            SAXBuilder saxBuilder = new SAXBuilder();
+            org.jdom2.Document document = saxBuilder.build(inputFile);
+            org.jdom2.Element tweetsElement = document.getRootElement();
+            for(int i = 0; i < tweetsElement.getChildren().size(); i++) {
+                long id = Long.parseLong(tweetsElement.getChildren().get(i).getChildren().get(0).getText());
+                String username = tweetsElement.getChildren().get(i).getChildren().get(1).getText();
+                String screenname = tweetsElement.getChildren().get(i).getChildren().get(2).getText();
+                String date = tweetsElement.getChildren().get(i).getChildren().get(3).getText();
+                String tweetText = tweetsElement.getChildren().get(i).getChildren().get(4).getText();
+                int retweets = Integer.parseInt(tweetsElement.getChildren().get(i).getChildren().get(5).getText());
+                int likes = Integer.parseInt(tweetsElement.getChildren().get(i).getChildren().get(6).getText());
+                String cl = tweetsElement.getChildren().get(i).getChildren().get(7).getText();
+                tweets.add(new Tweet(id,username,screenname,date,tweetText,retweets,likes));
+            }
+
+         }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return tweets;
     }
 }

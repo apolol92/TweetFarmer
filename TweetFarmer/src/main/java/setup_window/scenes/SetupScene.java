@@ -175,6 +175,9 @@ public class SetupScene extends Scene {
 
     }
 
+    /**
+     * All textfields contain text?
+     */
     private void checkAllFilled() {
         if(tfTwitterAccessToken.getText().trim().compareTo("")!=0 && tfTwitterAccessTokenSecret.getText().trim().compareTo("")!=0&&tfTwitterConsumerSecret.getText().trim().compareTo("")!=0&&tfTwitterAccessToken.getText().compareTo("")!=0) {
             btSetup.setDisable(false);

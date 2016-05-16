@@ -93,6 +93,16 @@ public class Tweet {
         this.profilImageUrl = profilImageUrl;
     }
 
+    public Tweet(long id, String username, String screenname, String date, String text, int retweets, int likes) {
+        this.id = id;
+        this.username = username;
+        this.screenname = screenname;
+        this.date = date;
+        this.text = text;
+        this.retweets = retweets;
+        this.likes = likes;
+    }
+
     public Tweet(Tweet t) {
         this.id = t.id;
         this.username = t.getUsername();
