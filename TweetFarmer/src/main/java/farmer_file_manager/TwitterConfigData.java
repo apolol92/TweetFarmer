@@ -96,6 +96,8 @@ public class TwitterConfigData {
         return twitterConfigData;
     }
 
+
+
     private static void readTwitterConfigData() {
         try {
             File inputFile = new File(TWITTER_CONFIG_PATH);
@@ -107,20 +109,22 @@ public class TwitterConfigData {
             for (org.jdom2.Element node : nodes) {
                 switch(i) {
                     case 0:
-                        getTwitterConfigData().setTwitterConsumerKey(node.getAttribute("str").getValue());
+                        twitterConfigData.setTwitterConsumerKey(node.getAttribute("str").getValue());
                         break;
                     case 1:
-                        getTwitterConfigData().setTwitterConsumerSecret(node.getAttribute("str").getValue());
+                        twitterConfigData.setTwitterConsumerSecret(node.getAttribute("str").getValue());
                         break;
                     case 2:
-                        getTwitterConfigData().setTwitterAccessToken(node.getAttribute("str").getValue());
+                        twitterConfigData.setTwitterAccessToken(node.getAttribute("str").getValue());
                         break;
                     case 3:
-                        getTwitterConfigData().setTwitterAccessTokenSecret(node.getAttribute("str").getValue());
+                        twitterConfigData.setTwitterAccessTokenSecret(node.getAttribute("str").getValue());
                         break;
                 }
+                i++;
             }
-            i++;
+
+
         }
         catch(Exception ex) {
 

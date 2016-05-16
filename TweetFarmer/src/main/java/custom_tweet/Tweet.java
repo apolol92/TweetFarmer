@@ -8,6 +8,34 @@ import java.util.ArrayList;
  * Tweet-ID, Tweet-Text, perhaps a class(if it was classified before)
  */
 public class Tweet {
+    private String screenname;
+    private String username;
+    private String date;
+
+    public String getScreenname() {
+        return screenname;
+    }
+
+    public void setScreenname(String screenname) {
+        this.screenname = screenname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     /**
      * Amount of likes
      */
@@ -33,8 +61,11 @@ public class Tweet {
      * @param id
      * @param text
      */
-    public Tweet(long id, String text, int retweets, int likes) {
+    public Tweet(long id, String username, String screenname, String date, String text, int retweets, int likes) {
         this.id = id;
+        this.username = username;
+        this.screenname = screenname;
+        this.date = date;
         this.text = text;
         this.retweets = retweets;
         this.likes = likes;
@@ -42,6 +73,9 @@ public class Tweet {
 
     public Tweet(Tweet t) {
         this.id = t.id;
+        this.username = t.getUsername();
+        this.screenname = t.getScreenname();
+        this.date = t.getDate();
         this.text = t.text;
         this.cl = t.cl;
         this.retweets = t.retweets;

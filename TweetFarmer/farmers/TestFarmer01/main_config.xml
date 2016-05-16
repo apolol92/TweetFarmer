@@ -2,14 +2,15 @@
 
 <farmer name="TestFarmer01">
   <hashtags>
-    <hashtag str="test1"/>
-    <hashtag str="test2"/>
-    <hashtag str="test3"/>
+    <hashtag str="adidas"/>
+    <hashtag str="nike"/>
+    <hashtag str="puma"/>
   </hashtags>
   <localStorage str="1"/>
   <classes>
-    <class str="tester"/>
-    <class str="not"/>
+    <class str="positive"/>
+    <class str="negative"/>
+	<class str="neutral"/>
   </classes>
-  <database str="0"/>
+  <database str="1"/>
 </farmer>

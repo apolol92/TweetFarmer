@@ -44,6 +44,7 @@ public class MenuScene extends Scene {
         this.stage.setTitle("TweetFarmer - Menu");
         this.stage.setScene(this);
         this.stage.show();
+        update();
     }
 
 
