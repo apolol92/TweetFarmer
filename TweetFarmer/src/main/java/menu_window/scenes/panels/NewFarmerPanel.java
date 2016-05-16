@@ -67,6 +67,10 @@ public class NewFarmerPanel extends VBox {
      */
     private Label lbNewFarmer;
 
+    /**
+     * Constructor for NewFarmerPanel
+     * @param menuScene
+     */
     public NewFarmerPanel(MenuScene menuScene) {
         super();
         this.databaseConfigData = null;

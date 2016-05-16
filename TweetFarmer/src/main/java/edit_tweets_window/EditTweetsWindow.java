@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 /**
  * Created by gross on 11.05.2016.
+ * This Window give the user the possibility to edit his tweets
  */
 public class EditTweetsWindow {
     public EditTweetsWindow() {

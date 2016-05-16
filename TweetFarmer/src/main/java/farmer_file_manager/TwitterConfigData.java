@@ -84,10 +84,17 @@ public class TwitterConfigData {
      */
     public static final String TWITTER_CONFIG_PATH = "twitter_config.xml";
 
+    /**
+     * Default-Constructor
+     */
     protected  TwitterConfigData() {
 
     }
 
+    /**
+     * Get TwitterConfigData
+     * @return
+     */
     public static TwitterConfigData getTwitterConfigData() {
         if(twitterConfigData==null) {
             twitterConfigData = new TwitterConfigData();
@@ -97,7 +104,9 @@ public class TwitterConfigData {
     }
 
 
-
+    /**
+     * Read the twitter config data
+     */
     private static void readTwitterConfigData() {
         try {
             File inputFile = new File(TWITTER_CONFIG_PATH);
@@ -144,6 +153,14 @@ public class TwitterConfigData {
             return false;
         }
     }
+
+    /**
+     * Write Twitter Config Data
+     * @param twitterConsumerKey
+     * @param twitterConsumerSecret
+     * @param twitterAccessToken
+     * @param twitterAccessTokenSecret
+     */
     public static void writeTwitterConfigData(String twitterConsumerKey, String twitterConsumerSecret, String twitterAccessToken, String twitterAccessTokenSecret) {
         try {
             Document document = DocumentHelper.createDocument();

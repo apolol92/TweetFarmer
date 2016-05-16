@@ -16,7 +16,13 @@ public class FarmerConfig {
      * Classes for classifier
      */
     String[] classes;
+    /**
+     * LocalStorage??
+     */
     private boolean localStorage;
+    /**
+     * DatabaseStorage??
+     */
     private boolean databaseStorage;
 
     public String getName() {

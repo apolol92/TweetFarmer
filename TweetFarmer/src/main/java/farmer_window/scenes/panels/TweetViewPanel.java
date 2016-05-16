@@ -15,6 +15,7 @@ import javafx.scene.image.ImageViewBuilder;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import local_storage.LocalStorager;
 import main.Program;
 
 import javax.imageio.ImageIO;
@@ -27,9 +28,21 @@ import java.util.ArrayList;
  * Panel for showing all Tweets.. only one at once..
  */
 public class TweetViewPanel extends GridPane {
+    /**
+     * Contains the farmer config
+     */
     private FarmerConfig farmerConfig;
+    /**
+     * Ignore Button
+     */
     private Button btIgnore;
+    /**
+     * All current Tweets
+     */
     private ArrayList<Tweet> currentTweets;
+    /**
+     * The Tweet-Receiver
+     */
     private TweetHistoryReceiver tweetHistoryReceiver;
     /**
      * Name of current Farmer
@@ -110,6 +123,7 @@ public class TweetViewPanel extends GridPane {
                 public void handle(MouseEvent event) {
                     //TODO: ADD TWEET TO DATABASE
                     //TODO: ADD TWEET TO LOCAL STORAGE
+                    LocalStorager.insertTweet(farmername,currentTweets.get(0));
                     //Remove tweet from currentTweets
                     if(currentTweets.size()>1) {
                         currentTweets.remove(0);

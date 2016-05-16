@@ -16,9 +16,21 @@ public class Tweet {
         this.profilImageUrl = profilImageUrl;
     }
 
+    /**
+     * URL to profile image..
+     */
     private String profilImageUrl;
+    /**
+     * Screenname
+     */
     private String screenname;
+    /**
+     * Username
+     */
     private String username;
+    /**
+     * Creation time
+     */
     private String date;
 
     public String getScreenname() {

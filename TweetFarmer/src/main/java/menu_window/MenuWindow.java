@@ -7,6 +7,7 @@ import setup_window.scenes.SetupScene;
 
 /**
  * Created by apolol92 on 10.05.2016.
+ * Menu Window Stage
  */
 public class MenuWindow {
     /**

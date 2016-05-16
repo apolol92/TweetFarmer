@@ -16,6 +16,9 @@ import java.util.List;
  */
 public class FarmerConfigWriter {
 
+    /**
+     * The main_config.xml filename
+     */
     public static final String MAIN_CONFIG_XML = "main_config.xml";
 
     public boolean write(String farmername, String hashtags[], DatabaseConfigData databaseConfigData, String classes[], boolean localStorage) {

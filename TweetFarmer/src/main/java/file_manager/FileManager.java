@@ -10,9 +10,19 @@ import java.util.ArrayList;
  * Manages all local files
  */
 public class FileManager {
+    /**
+     * Farmerspath
+     */
     public static final String FARMERS_PATH = "farmers/";
+    /**
+     * Farmername
+     */
     private final String farmername;
 
+    /**
+     * Constructor for FileManager
+     * @param farmername
+     */
     public FileManager(String farmername) {
         File farmerRootFolder = new File(this.FARMERS_PATH);
         if(!farmerRootFolder.exists()) {
@@ -21,6 +31,14 @@ public class FileManager {
         this.farmername = farmername;
     }
 
+    /**
+     * Write farmer config
+     * @param hashtags
+     * @param databaseConfigData
+     * @param classes
+     * @param localStorage
+     * @return
+     */
     public boolean write_farmer(String hashtags[], DatabaseConfigData databaseConfigData, String classes[],boolean localStorage) {
         File farmerFolder = new File(this.FARMERS_PATH+this.farmername);
         if(!farmerFolder.exists()) {
@@ -33,6 +51,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Read farmer config
+     * @param farmername
+     * @return
+     */
     public FarmerConfig readFarmer(String farmername) {
         File farmerFolder = new File(this.FARMERS_PATH+this.farmername);
         if(farmerFolder.exists()) {

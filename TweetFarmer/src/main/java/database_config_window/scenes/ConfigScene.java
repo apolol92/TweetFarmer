@@ -18,8 +18,17 @@ import javafx.stage.Stage;
  * This Window give the user the possiblity to configure his/her database-access.
  */
 public class ConfigScene extends Scene{
+    /**
+     * Label for databasename
+     */
     private Label lbDatabasename;
+    /**
+     * Textfield for databasename
+     */
     private TextField tfDatabasename;
+    /**
+     * DatabaseConfig Data
+     */
     private DatabaseConfigData databaseConfigData;
     /**
      * Textfield for Database Ip-Address

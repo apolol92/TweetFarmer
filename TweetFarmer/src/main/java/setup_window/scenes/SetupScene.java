@@ -101,6 +101,9 @@ public class SetupScene extends Scene {
         this.stage.show();
     }
 
+    /**
+     * Creates the UI
+     */
     private void createUI() {
         this.lbJustMoment = new Label("Just a Moment..");
         this.lbJustMoment.setFont(new Font(Global.FONT_FAMILY, 36));
