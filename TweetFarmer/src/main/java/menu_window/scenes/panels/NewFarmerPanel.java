@@ -116,6 +116,7 @@ public class NewFarmerPanel extends VBox {
                 if(fileManager.write_farmer(tfHashtags.getText().split(","),databaseConfigData,tfClasses.getText().split(","),
                         cbLocalStorage.isSelected())) {
                         menuScene.update();
+                        databaseConfigData.writeData(tfFarmerName.getText());
                 }
             }
         });

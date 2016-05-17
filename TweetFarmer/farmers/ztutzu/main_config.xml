@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<farmer name="ztutzu">
+  <hashtags>
+    <hashtag str="ret"/>
+    <hashtag str="ret"/>
+  </hashtags>
+  <localStorage str="1"/>
+  <classes>
+    <class str="erter"/>
+    <class str="qwr"/>
+  </classes>
+  <database str="1">
+    <ip str="127.0.0.1"/>
+    <port str="5432"/>
+    <name str="mydb"/>
+    <username str="tester"/>
+    <password str="tester"/>
+    <databaseTyp/>
+  </database>
+</farmer>

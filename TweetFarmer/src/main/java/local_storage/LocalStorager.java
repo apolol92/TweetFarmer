@@ -2,9 +2,6 @@ package local_storage;
 
 import custom_tweet.Tweet;
 import file_manager.FileManager;
-import org.dom4j.DocumentHelper;
-import org.dom4j.io.XMLWriter;
-import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -12,9 +9,7 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.InterruptedIOException;
 import java.util.ArrayList;
 
 /**

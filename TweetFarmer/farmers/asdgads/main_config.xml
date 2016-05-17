@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<farmer name="asdgads">
+  <hashtags>
+    <hashtag str="wgw"/>
+    <hashtag str="wegag"/>
+    <hashtag str="ewgw"/>
+  </hashtags>
+  <localStorage str="1"/>
+  <classes>
+    <class str="weg"/>
+    <class str="weg"/>
+    <class str="ewg"/>
+  </classes>
+  <database str="1">
+    <ip str="127.0.0.1"/>
+    <port str="5432"/>
+    <name str="mydatabase"/>
+    <username str="hans"/>
+    <password str="tesagasg"/>
+    <databaseTyp/>
+  </database>
+</farmer>
