@@ -41,6 +41,15 @@ public class TweetHistoryReceiver {
      * Query-String
      */
     String queryString = "";
+
+    public ArrayList<Tweet> getHistoryTweets() {
+        return historyTweets;
+    }
+
+    public void setHistoryTweets(ArrayList<Tweet> historyTweets) {
+        this.historyTweets = historyTweets;
+    }
+
     /**
      * Historical Tweets, which are processed
      */

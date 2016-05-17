@@ -1,12 +1,23 @@
 package farmer_window.scenes;
 
+import custom_tweet.Tweet;
+import data_exporter.CsvExporter;
 import farmer_window.scenes.panels.FarmerMenuPanel;
 import farmer_window.scenes.panels.TweetViewPanel;
 import javafx.beans.NamedArg;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import local_storage.LocalStorager;
+
+import java.util.ArrayList;
 
 /**
  * Created by gross on 11.05.2016.
@@ -21,6 +32,7 @@ public class FarmerScene extends Scene {
      * TweetView-Panel
      */
     private TweetViewPanel tweetViewPanel;
+    private VBox layout;
     /**
      * The layout of scene
      */
@@ -39,12 +51,33 @@ public class FarmerScene extends Scene {
      * @param stage
      */
     public FarmerScene(Stage stage, String farmername) {
-        super(new HBox());
+        super(new VBox());
         this.farmername = farmername;
-        this.hbLayout = (HBox)this.getRoot();
+        this.layout = (VBox)this.getRoot();
+        this.hbLayout = new HBox();
         this.farmerMenuPanel = new FarmerMenuPanel();
+        //Menu
+        Menu exportMenu = new Menu("Export");
+
+        //Menubar
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(exportMenu);
         this.tweetViewPanel = new TweetViewPanel(this.farmername);
         this.hbLayout.getChildren().addAll(this.farmerMenuPanel,this.tweetViewPanel);
+        //Menu items
+        MenuItem exportCsv = new MenuItem("CSV Export");
+        exportMenu.getItems().add(exportCsv);
+        exportCsv.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ArrayList<Tweet> tweets = LocalStorager.readAllTweetsFromLocal(farmername);
+                if(tweets.size()>0) {
+                    CsvExporter.export(farmername, tweets);
+                    System.out.println("written..");
+                }
+            }
+        });
+        this.layout.getChildren().addAll(menuBar,this.hbLayout);
         this.stage = stage;
         this.stage.setScene(this);
         this.stage.show();

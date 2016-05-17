@@ -2,6 +2,7 @@ package farmer_window.scenes.panels;
 
 import custom_tweet.Tweet;
 import custom_tweet.TweetHistoryReceiver;
+import data_exporter.CsvExporter;
 import farmer_file_manager.TwitterConfigData;
 import farmer_window.FarmerWindow;
 import file_manager.FarmerConfig;
@@ -43,7 +44,7 @@ public class TweetViewPanel extends GridPane {
     /**
      * The Tweet-Receiver
      */
-    private TweetHistoryReceiver tweetHistoryReceiver;
+    public TweetHistoryReceiver tweetHistoryReceiver;
     /**
      * Name of current Farmer
      */
@@ -88,6 +89,8 @@ public class TweetViewPanel extends GridPane {
         this.tweetHistoryReceiver = new TweetHistoryReceiver(TwitterConfigData.getTwitterConfigData().getTwitterTwitterConsumerKey(),
                 TwitterConfigData.getTwitterConfigData().getTwitterTwitterConsumerSecret(), TwitterConfigData.getTwitterConfigData().getTwitterAccessToken(),
                 TwitterConfigData.getTwitterConfigData().getTwitterAccessTokenSecret(),hashtags);
+        //READ OLD TWEETS
+        this.tweetHistoryReceiver.setHistoryTweets(LocalStorager.readAllTweetsFromLocal(farmername));
         //Get Current Tweets
         this.currentTweets = this.tweetHistoryReceiver.getNewTweets();
         this.ivProfil = ImageViewBuilder.create()

@@ -168,7 +168,8 @@ public class LocalStorager {
                 int retweets = Integer.parseInt(tweetsElement.getChildren().get(i).getChildren().get(5).getText());
                 int likes = Integer.parseInt(tweetsElement.getChildren().get(i).getChildren().get(6).getText());
                 String cl = tweetsElement.getChildren().get(i).getChildren().get(7).getText();
-                tweets.add(new Tweet(id,username,screenname,date,tweetText,retweets,likes));
+                System.out.println(cl);
+                tweets.add(new Tweet(cl,id,username,screenname,date,tweetText,retweets,likes));
             }
 
          }
