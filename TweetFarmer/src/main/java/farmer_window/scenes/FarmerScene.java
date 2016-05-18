@@ -62,8 +62,8 @@ public class FarmerScene extends Scene {
         //Menubar
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().add(exportMenu);
-        this.tweetViewPanel = new TweetViewPanel(this.farmername);
-        this.hbLayout.getChildren().addAll(this.farmerMenuPanel,this.tweetViewPanel);
+        this.tweetViewPanel = new TweetViewPanel(this,this.farmername);
+        this.hbLayout.getChildren().addAll(this.tweetViewPanel);
         //Menu items
         MenuItem exportCsv = new MenuItem("CSV Export");
         exportMenu.getItems().add(exportCsv);
