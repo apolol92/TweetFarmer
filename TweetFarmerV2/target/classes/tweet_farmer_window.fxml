@@ -14,9 +14,9 @@
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-            <Menu mnemonicParsing="false" text="Configuration">
+            <Menu mnemonicParsing="false" text="Farmer">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem fx:id="miSettings" mnemonicParsing="false" text="Settings" onAction="#miSettingClicked"/>
               </items>
             </Menu>
         <Menu mnemonicParsing="false" text="Export">

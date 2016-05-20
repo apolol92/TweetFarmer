@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Farmer Settings">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" />
+         </padding>
+      </Label>
+      <Label text="Hashtags" />
+      <TextField fx:id="tfHashtags">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </TextField>
+      <Label text="Language" />
+      <ComboBox fx:id="cobLanaguage" prefHeight="25.0" prefWidth="263.0">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="fr" />
+               <String fx:value="de" />
+               <String fx:value="en" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <Button fx:id="btEdit" mnemonicParsing="false" onAction="#btEditClicked" prefHeight="25.0" prefWidth="262.0" text="Edit" />
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+</VBox>

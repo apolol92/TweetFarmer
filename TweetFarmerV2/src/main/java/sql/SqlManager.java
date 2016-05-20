@@ -78,8 +78,7 @@ public class SqlManager {
     }
 
     public boolean connect() {
-        if(this.dbtyp.compareTo(TYP_POSTGRESQL)==0) {
-            System.out.println("HHIIIIIER");
+        if(this.dbtyp.compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             try {
                 Class.forName("org.postgresql.Driver");
                 this.connection = DriverManager.getConnection("jdbc:postgresql://"+this.dbip+":"+this.dbport+"/"+this.dbname,this.dbuser,this.dbpassword);

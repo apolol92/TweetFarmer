@@ -5,6 +5,7 @@ import config_data.TwitterConfigData;
 import custom_tweet.Tweet;
 import custom_tweet.TweetHistoryReceiver;
 import data_exporter.CsvExporter;
+import farmer_edit_window.FarmerEditWindow;
 import file_manager.FarmerConfig;
 import file_manager.FileManager;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +39,8 @@ import java.util.ResourceBundle;
  * This is the controller for the TweetFarmerWindow
  */
 public class TweetFarmerWindowController implements Initializable{
+    @FXML
+    public MenuItem miSettings;
     private ArrayList<ClassIdPair> ClassIdPairs;
     /**
      * Farmer Config
@@ -111,6 +115,7 @@ public class TweetFarmerWindowController implements Initializable{
             //Database Table Setup
             DatabaseCreator databaseCreator = new DatabaseCreator(databaseConfigData.getIp(),Integer.parseInt(databaseConfigData.getPort()),
                     databaseConfigData.getDbTyp(),databaseConfigData.getDatabasename(),databaseConfigData.getUsername(),databaseConfigData.getPassword());
+            System.out.println(databaseConfigData.getIp());
             databaseCreator.connect();
             databaseCreator.createTables();
             databaseCreator.createProcedures();
@@ -186,6 +191,9 @@ public class TweetFarmerWindowController implements Initializable{
                                 currentTweets.remove(0);
                             }
                             if (currentTweets.size() == 0) {
+                                farmerConfig = new FileManager(farmername).readFarmer(farmername);
+                                tweetHistoryReceiver.setHashtags(farmerConfig.getHashtags());
+                                tweetHistoryReceiver.setLanguage(farmerConfig.getLanguage());
                                 currentTweets = tweetHistoryReceiver.getNewTweets();
                             }
                             //Reload TweetViewPanel
@@ -215,6 +223,9 @@ public class TweetFarmerWindowController implements Initializable{
                             if (farmerConfig.isDatabaseStorage()) {
                                 tweetHistoryReceiver.addNewTweets2History(TweetConverter.getTweetsFromDatabase(databaseProcExecuter.execProcSelectTweetsFromFarmer(farmername), farmername));
                             }
+                            farmerConfig = new FileManager(farmername).readFarmer(farmername);
+                            tweetHistoryReceiver.setHashtags(farmerConfig.getHashtags());
+                            tweetHistoryReceiver.setLanguage(farmerConfig.getLanguage());
                             currentTweets = tweetHistoryReceiver.getNewTweets();
                         }
                         //Reload TweetViewPanel
@@ -251,5 +262,9 @@ public class TweetFarmerWindowController implements Initializable{
         if(tweets.size()>0) {
             CsvExporter.export(farmername, tweets);
         }
+    }
+    @FXML
+    public void miSettingClicked(ActionEvent actionEvent) {
+        FarmerEditWindow farmerEditWindow = new FarmerEditWindow(farmername);
     }
 }

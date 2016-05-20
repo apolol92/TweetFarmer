@@ -3,8 +3,10 @@ package file_manager;
 
 
 import config_data.DatabaseConfigData;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +48,15 @@ public class FileManager {
         if(!farmerFolder.exists()) {
             farmerFolder.mkdir();
 
+            return new FarmerConfigWriter().write(farmername,hashtags,databaseConfigData,classes,localStorage,language);
+        }
+        else {
+            return false;
+        }
+    }
+    public boolean edit_write_farmer(String hashtags[], DatabaseConfigData databaseConfigData, String classes[], boolean localStorage, String language) {
+        File farmerFolder = new File(this.FARMERS_PATH+this.farmername);
+        if(farmerFolder.exists()) {
             return new FarmerConfigWriter().write(farmername,hashtags,databaseConfigData,classes,localStorage,language);
         }
         else {
@@ -98,6 +109,17 @@ public class FileManager {
             }
         }
         return folders;
+
+    }
+
+    public static void deleteFarmer(String farmername) {
+        File folder = new File(FARMERS_PATH+farmername);
+        try {
+            FileUtils.deleteDirectory(folder);
+            System.out.println("Should be deleted..");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

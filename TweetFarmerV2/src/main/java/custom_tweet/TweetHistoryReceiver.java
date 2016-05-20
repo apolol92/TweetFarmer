@@ -35,10 +35,19 @@ public class TweetHistoryReceiver {
      * Twitter-Factory
      */
     TwitterFactory twitterFactoy;
+
+    public String[] getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(String[] hashtags) {
+        this.hashtags = hashtags;
+    }
+
     /**
      * Hashtags
      */
-    private final String[] hashtags;
+    private String[] hashtags;
     /**
      * Query-String
      */
@@ -185,4 +194,7 @@ public class TweetHistoryReceiver {
     }
 
 
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 }

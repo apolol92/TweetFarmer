@@ -2,6 +2,7 @@ package menu_window;
 
 import config_data.DatabaseConfigData;
 import database_setup_window.DatabaseSetupWindow;
+import file_manager.FarmerConfig;
 import file_manager.FileManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -9,15 +10,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import setup_window.SetupWindow;
 import setup_window.SetupWindowController;
+import sql.DatabaseProcExecuter;
 import tweet_farmer_window.TweetFarmerWindow;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -92,6 +97,34 @@ public class MenuWindowController implements Initializable {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 checkAllFilled();
+            }
+        });
+        lvFarmers.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                System.out.println(event.getCode());
+                if(event.getCode().toString().compareTo("DELETE")==0) {
+                    if(lvFarmers.getSelectionModel().getSelectedItem()!=null) {
+                        FarmerConfig farmerConfig = new FarmerConfig();
+                        FileManager fileManager = new FileManager(lvFarmers.getSelectionModel().getSelectedItem().toString());
+                        farmerConfig = fileManager.readFarmer(lvFarmers.getSelectionModel().getSelectedItem().toString());
+                        if (farmerConfig.isDatabaseStorage()) {
+                            DatabaseConfigData databaseConfigData = new DatabaseConfigData();
+                            databaseConfigData.readData(farmerConfig.getName());
+                            try {
+                                DatabaseProcExecuter databaseProcExecuter = new DatabaseProcExecuter(databaseConfigData.getIp(), Integer.parseInt(databaseConfigData.getPort()),
+                                        databaseConfigData.getDbTyp(), databaseConfigData.getDatabasename(), databaseConfigData.getUsername(), databaseConfigData.getPassword());
+                                databaseProcExecuter.connect();
+                                databaseProcExecuter.execProcDeleteFarmer(farmerConfig.getName());
+                                databaseProcExecuter.disconnect();
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                        FileManager.deleteFarmer(lvFarmers.getSelectionModel().getSelectedItem().toString());
+                        update();
+                    }
+                }
             }
         });
         update();

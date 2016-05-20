@@ -16,7 +16,7 @@ public class DatabaseCreator extends SqlManager {
         String sqlFarmers ="";
         String sqlClasses = "";
         String sqlFarmerTweets = "";
-        if(this.getDbtyp().compareTo(TYP_POSTGRESQL)==0) {
+        if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             sqlFarmers = "CREATE TABLE IF NOT EXISTS farmers" +
                     "(ID BIGSERIAL PRIMARY KEY, "+
                     "name TEXT UNIQUE);";
@@ -30,9 +30,8 @@ public class DatabaseCreator extends SqlManager {
                     "class_id BIGINT REFERENCES farmer_classes(ID), "+
                     "likes INTEGER, "+
                     "retweets INTEGER);";
-
         }
-        if(sqlFarmers!=""&&sqlClasses!=""&&sqlFarmerTweets!="") {
+        if(sqlFarmers.compareTo("")!=0&&sqlClasses.compareTo("")!=0&&sqlFarmerTweets.compareTo("")!=0) {
             try {
                 Statement stmt = super.connection.createStatement();
                 stmt.executeUpdate(sqlFarmers);
@@ -55,6 +54,7 @@ public class DatabaseCreator extends SqlManager {
             stmt.executeUpdate(getProcInsertTweet());
             stmt.executeUpdate(getProcSelectTweetsFrom());
             stmt.executeUpdate(getProcGetClassesFromFarmername());
+            stmt.executeUpdate(getProcDeleteFarmer());
             stmt.close();
             return true;
         }
@@ -65,7 +65,7 @@ public class DatabaseCreator extends SqlManager {
     }
 
     private String getProcInsertFarmer() {
-        if(this.getDbtyp().compareTo(TYP_POSTGRESQL)==0) {
+        if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION insertFarmer(farmername TEXT) RETURNS BIGINT AS $$ " +
                     "DECLARE max_id BIGINT;" +
                     "BEGIN " +
@@ -78,7 +78,7 @@ public class DatabaseCreator extends SqlManager {
     }
 
     private String getProcInsertClass() {
-        if(this.getDbtyp().compareTo(TYP_POSTGRESQL)==0) {
+        if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION insertClass(farmerId BIGINT, classname TEXT) RETURNS BIGINT AS $$ " +
                     "DECLARE max_id BIGINT;" +
                     "BEGIN " +
@@ -91,7 +91,7 @@ public class DatabaseCreator extends SqlManager {
     }
 
     public String getProcGetClassesFromFarmername() {
-        if(this.getDbtyp().compareTo(TYP_POSTGRESQL)==0) {
+        if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION getProcGetClassesFromFarmername(farmername TEXT) RETURNS TABLE(class_name TEXT, class_id BIGINT) AS $$ " +
                     "DECLARE max_id BIGINT;" +
                     "BEGIN " +
@@ -104,7 +104,7 @@ public class DatabaseCreator extends SqlManager {
     }
 
     private String getProcSelectTweetsFrom() {
-        if(this.getDbtyp().compareTo(TYP_POSTGRESQL)==0) {
+        if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION selectTweetsFrom(farmer_name TEXT) "+
                     "RETURNS TABLE(fname TEXT, ftext TEXT, flikes INTEGER, rtweets INTEGER, tid BIGINT) AS $$ "+
                     "BEGIN " +
@@ -130,13 +130,28 @@ public class DatabaseCreator extends SqlManager {
 
 
     public String getProcInsertTweet() {
-        if(this.getDbtyp().compareTo(TYP_POSTGRESQL)==0) {
+        if(this.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION insertTweet(tweetId BIGINT, classId BIGINT, tweetTxt TEXT, liks INTEGER, rtweets INTEGER) RETURNS BIGINT AS $$ " +
                     "DECLARE max_id BIGINT;" +
                     "BEGIN " +
                     "INSERT INTO farmer_tweets(id, tweet_text,class_id,likes,retweets) VALUES(tweetId, tweetTxt, classId, liks, rtweets); " +
                     "SELECT MAX(id) INTO max_id FROM farmer_classes; " +
                     "RETURN max_id; " +
+                    "END; $$ LANGUAGE plpgsql;";
+        }
+        return "";
+    }
+
+    public String getProcDeleteFarmer() {
+        if(this.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
+            return "CREATE OR REPLACE FUNCTION deleteFarmer(farmername TEXT) RETURNS BIGINT AS $$ " +
+                    "DECLARE mid BIGINT;" +
+                    "BEGIN " +
+                    "SELECT id INTO mid FROM farmers WHERE name=farmername; " +
+                    "DELETE FROM farmer_tweets WHERE class_id IN (SELECT id FROM farmer_classes WHERE farmer_id=mid); "+
+                    "DELETE FROM farmer_classes WHERE  farmer_id=mid; "+
+                    "DELETE FROM farmers WHERE id = mid;" +
+                    "RETURN mid; " +
                     "END; $$ LANGUAGE plpgsql;";
         }
         return "";
