@@ -21,7 +21,7 @@ public class FarmerConfigWriter {
      */
     public static final String MAIN_CONFIG_XML = "main_config.xml";
 
-    public boolean write(String farmername, String hashtags[], DatabaseConfigData databaseConfigData, String classes[], boolean localStorage) {
+    public boolean write(String farmername, String hashtags[], DatabaseConfigData databaseConfigData, String classes[], boolean localStorage, String language) {
 
         try
         {
@@ -59,6 +59,8 @@ public class FarmerConfigWriter {
             else {
                 Element databaseElement = root.addElement("database").addAttribute("str", "0");
             }
+            //Language
+            Element lanElement = root.addElement("language").addAttribute("str",language);
             //XML-System.out
             OutputFormat format = OutputFormat.createPrettyPrint();
             XMLWriter writer;

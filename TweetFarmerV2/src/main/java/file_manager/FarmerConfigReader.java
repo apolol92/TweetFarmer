@@ -63,6 +63,10 @@ public class FarmerConfigReader {
                             farmerConfig.setDatabaseStorage(false);
                         }
                         break;
+                    case 4:
+                        String v2 = node.getAttribute("str").getValue();
+                        farmerConfig.setLanguage(v2);
+                        break;
                 }
                 i++;
 

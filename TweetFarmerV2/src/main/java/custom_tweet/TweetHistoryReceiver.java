@@ -1,4 +1,5 @@
 package custom_tweet;
+
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * It checks the oldest tweet and just get older tweets.
  */
 public class TweetHistoryReceiver {
+    private String language;
     //Twitter-Configuration
     /**
      * Twitter consumer key
@@ -58,26 +60,28 @@ public class TweetHistoryReceiver {
 
     /**
      * Creates the TweetHistoryReceiver
+     *
      * @param consumerKey
      * @param consumerSecret
      * @param accessToken
      * @param accessTokenSecret
      * @param hashtags
      */
-    public TweetHistoryReceiver(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret, String[] hashtags) {
+    public TweetHistoryReceiver(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret, String[] hashtags, String language) {
         this.consumerKey = consumerKey;
         this.consumerSecret = consumerSecret;
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
         this.hashtags = hashtags;
         this.historyTweets = new ArrayList<Tweet>();
+        this.language = language;
         setup();
         queryStringSetup();
     }
 
     public boolean containsTweet(long id) {
-        for(int i = 0; i < historyTweets.size(); i++) {
-            if(historyTweets.get(i).getId()==id) {
+        for (int i = 0; i < historyTweets.size(); i++) {
+            if (historyTweets.get(i).getId() == id) {
                 return true;
             }
         }
@@ -90,7 +94,7 @@ public class TweetHistoryReceiver {
     private void setup() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey(this.consumerKey )
+                .setOAuthConsumerKey(this.consumerKey)
                 .setOAuthConsumerSecret(this.consumerSecret)
                 .setOAuthAccessToken(this.accessToken)
                 .setOAuthAccessTokenSecret(this.accessTokenSecret);
@@ -102,11 +106,10 @@ public class TweetHistoryReceiver {
      * Query-String setup
      */
     private void queryStringSetup() {
-        for(int i = 0; i < this.hashtags.length; i++) {
-            if(i+1!=this.hashtags.length) {
+        for (int i = 0; i < this.hashtags.length; i++) {
+            if (i + 1 != this.hashtags.length) {
                 queryString += "(#" + this.hashtags[i] + ") OR";
-            }
-            else {
+            } else {
                 queryString += "(#" + this.hashtags[i] + ")";
             }
         }
@@ -114,33 +117,43 @@ public class TweetHistoryReceiver {
 
     /**
      * Get new old tweets
+     *
      * @return
      */
     public ArrayList<Tweet> getNewTweets() {
         ArrayList<Tweet> nTweets = new ArrayList<Tweet>();
         long minId = Tweet.getMinTweetId(this.historyTweets);
         //Querying
+        int counter = 0;
         try {
-            Twitter twitter = this.twitterFactoy.getInstance();
-            Query query = new Query(this.queryString);
-            query.setLang("de");
-            query.setMaxId(minId-1);
-            QueryResult result;
             do {
-                result = twitter.search(query);
-                List<Status> tweets = result.getTweets();
-                for (Status tweet : tweets) {
-                    if(!Tweet.containsId(this.historyTweets,tweet.getId())) {
-                        nTweets.add(new Tweet(tweet.getId(), tweet.getUser().getName(), tweet.getUser().getScreenName(),
-                                tweet.getUser().getCreatedAt().toString(), tweet.getText(),tweet.getRetweetCount(),
-                                tweet.getFavoriteCount(),tweet.getUser().getBiggerProfileImageURL()));
-                        System.out.println(tweet.getId()+ ":" + tweet.getUser().getName()+":"+tweet.getText()+":"
-                                +tweet.getRetweetCount()+":"+tweet.getFavoriteCount());
+                counter++;
+                Twitter twitter = this.twitterFactoy.getInstance();
+                Query query = new Query(this.queryString);
+                query.setLang(this.language);
+                query.setMaxId(minId - 1);
+                QueryResult result;
+                do {
+                    result = twitter.search(query);
+                    List<Status> tweets = result.getTweets();
+                    for (Status tweet : tweets) {
+                        if (!Tweet.containsId(this.historyTweets, tweet.getId())) {
+                            nTweets.add(new Tweet(tweet.getId(), tweet.getUser().getName(), tweet.getUser().getScreenName(),
+                                    tweet.getUser().getCreatedAt().toString(), tweet.getText(), tweet.getRetweetCount(),
+                                    tweet.getFavoriteCount(), tweet.getUser().getBiggerProfileImageURL()));
+                        }
                     }
+                } while ((query = result.nextQuery()) != null);
+                //Copy tweets to history
+                addNewTweets2History(nTweets);
+                System.out.println("Wait for it.." + counter);
+                if (counter > 3) {
+                    minId = Tweet.getMaxTweetId(historyTweets) + counter*100;
                 }
-            } while ((query = result.nextQuery()) != null);
-            //Copy tweets to history
-            addNewTweets2History(nTweets);
+                if(counter>=5) {
+                    break;
+                }
+            } while (nTweets.size() == 0);
             //Return new tweets
             return nTweets;
 
@@ -153,6 +166,7 @@ public class TweetHistoryReceiver {
 
     /**
      * Get the min tweet id from history tweets
+     *
      * @return
      */
     public long getMinTweetIdInHistory() {
@@ -163,18 +177,12 @@ public class TweetHistoryReceiver {
      * Add new tweets to history tweets
      */
     public void addNewTweets2History(ArrayList<Tweet> nTweets) {
-        for(int i = 0; i < nTweets.size(); i++) {
-            if(!containsTweet(nTweets.get(i).getId())) {
+        for (int i = 0; i < nTweets.size(); i++) {
+            if (!containsTweet(nTweets.get(i).getId())) {
                 this.historyTweets.add(new Tweet(nTweets.get(i)));
             }
         }
     }
-
-
-
-
-
-
 
 
 }

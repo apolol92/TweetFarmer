@@ -8,6 +8,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu_window.MenuWindowController">
   <children>
@@ -36,7 +44,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </ListView>
-                  <Button fx:id="btLoadFarmer" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Load" onAction="#btLoadFarmerClick" />
+                  <Button fx:id="btLoadFarmer" disable="true" mnemonicParsing="false" onAction="#btLoadFarmerClick" prefHeight="25.0" prefWidth="200.0" text="Load" />
                </children>
             </VBox>
             <VBox>
@@ -67,8 +75,21 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </TextField>
+                  <Label text="Language" />
+                  <ComboBox fx:id="cobLanguage" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="fr" />
+                           <String fx:value="de" />
+                           <String fx:value="en" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
                   <CheckBox fx:id="cbDatabaseStorage" mnemonicParsing="false" onAction="#cbDatabaseStorageCheck" text="Database Storage" />
-                  <HBox alignment="BOTTOM_RIGHT" prefHeight="73.0" prefWidth="149.0">
+                  <HBox alignment="BOTTOM_RIGHT">
                      <children>
                         <Button fx:id="btCreateFarmer" disable="true" mnemonicParsing="false" onAction="#btCreateFarmerClick" text="Create" />
                      </children>

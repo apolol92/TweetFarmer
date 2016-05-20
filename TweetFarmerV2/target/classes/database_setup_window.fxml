@@ -26,12 +26,12 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <ListView prefHeight="200.0" prefWidth="200.0">
+            <ListView fx:id="lvDatabases" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </ListView>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Select">
+            <Button fx:id="btSelectDb" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Select" onAction="#btSelectDatabase">
                <VBox.margin>
                   <Insets />
                </VBox.margin>

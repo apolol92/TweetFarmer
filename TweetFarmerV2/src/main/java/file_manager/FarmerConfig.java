@@ -24,6 +24,7 @@ public class FarmerConfig {
      * DatabaseStorage??
      */
     private boolean databaseStorage;
+    private String language;
 
     public String getName() {
         return name;
@@ -63,5 +64,13 @@ public class FarmerConfig {
 
     public boolean isDatabaseStorage() {
         return databaseStorage;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 }

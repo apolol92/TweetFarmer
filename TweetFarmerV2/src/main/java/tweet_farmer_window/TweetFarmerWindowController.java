@@ -104,16 +104,11 @@ public class TweetFarmerWindowController implements Initializable{
         this.farmername = farmername;
         FileManager fileManager = new FileManager(farmername);
         this.farmerConfig = fileManager.readFarmer(farmername);
-        System.out.println("pppppppppppppppppppppppppppooooooooooooooooooooooooostttttttttttttttgreeeeeeeeeeeeeee11111111");
-        System.out.println(this.farmerConfig.getName()+ " " +this.farmerConfig.isDatabaseStorage());
         if(this.farmerConfig.isDatabaseStorage()) {
             ClassIdPairs = new ArrayList<ClassIdPair>();
-            System.out.println("pppppppppppppppppppppppppppooooooooooooooooooooooooostttttttttttttttgreeeeeeeeeeeeeee222222222");
             DatabaseConfigData databaseConfigData = new DatabaseConfigData();
             databaseConfigData.readData(farmername);
             //Database Table Setup
-            System.out.println(databaseConfigData.getIp()+ " " +Integer.parseInt(databaseConfigData.getPort())+ " " +
-                    databaseConfigData.getDbTyp()+ " " +databaseConfigData.getDatabasename()+ " " +databaseConfigData.getUsername()+ " " +databaseConfigData.getPassword());
             DatabaseCreator databaseCreator = new DatabaseCreator(databaseConfigData.getIp(),Integer.parseInt(databaseConfigData.getPort()),
                     databaseConfigData.getDbTyp(),databaseConfigData.getDatabasename(),databaseConfigData.getUsername(),databaseConfigData.getPassword());
             databaseCreator.connect();
@@ -144,17 +139,14 @@ public class TweetFarmerWindowController implements Initializable{
                 e.printStackTrace();
             }
             databaseProcExecuter.disconnect();
-            System.out.println("ClassIdPairs-Size:"+ClassIdPairs.size());
         }
         this.hashtags = this.farmerConfig.getHashtags();
         this.classes = this.farmerConfig.getClasses();
         this.tweetHistoryReceiver = new TweetHistoryReceiver(TwitterConfigData.getTwitterConfigData().getTwitterTwitterConsumerKey(),
                 TwitterConfigData.getTwitterConfigData().getTwitterTwitterConsumerSecret(), TwitterConfigData.getTwitterConfigData().getTwitterAccessToken(),
-                TwitterConfigData.getTwitterConfigData().getTwitterAccessTokenSecret(),hashtags);
+                TwitterConfigData.getTwitterConfigData().getTwitterAccessTokenSecret(),hashtags,farmerConfig.getLanguage());
         this.tweetHistoryReceiver.setHistoryTweets(LocalStorager.readAllTweetsFromLocal(farmername));
         this.currentTweets = this.tweetHistoryReceiver.getNewTweets();
-        System.out.println(this.currentTweets.size());
-        //System.out.println(currentTweets.get(0).getUsername() + " @"+currentTweets.get(0).getScreenname());
     }
 
     /**
@@ -164,91 +156,82 @@ public class TweetFarmerWindowController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.ivProfil.setImage(new Image(currentTweets.get(0).getProfilImageUrl()));
-        this.lbName.setText(currentTweets.get(0).getUsername() + " @"+currentTweets.get(0).getScreenname());
-        this.lbDate.setText(currentTweets.get(0).getDate());
-        this.taTweet.setText(currentTweets.get(0).getText());
-        int i = 0;
-        for(String c : classes) {
-            Button btClasses = new Button(c);
-            btClasses.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    currentTweets.get(0).setCl(btClasses.getText());
-                    //Remove tweet from currentTweets
-                    if (currentTweets.size() > 1) {
-                        LocalStorager.insertTweet(farmername, currentTweets.get(0));
-                        //ADD TWEET TO DATABASE
-                        if(farmerConfig.isDatabaseStorage()) {
-                            databaseProcExecuter.connect();
-                            //Insert Tweet to database
-                            databaseProcExecuter.execProcInsertTweet(currentTweets.get(0).getId(),
-                                    ClassIdPair.getIdByClassname(ClassIdPairs, currentTweets.get(0).getCl()), currentTweets.get(0).getText(),
-                                    currentTweets.get(0).getLikes(), currentTweets.get(0).getRetweets());
-                            //Add inserted Tweets to history(useful by multiple users)
-                            tweetHistoryReceiver.addNewTweets2History(TweetConverter.getTweetsFromDatabase(databaseProcExecuter.execProcSelectTweetsFromFarmer(farmername),farmername));
-                            databaseProcExecuter.disconnect();
-                        }
-                        currentTweets.remove(0);
-                    } else {
-                        try {
-                            LocalStorager.insertTweet(farmername, currentTweets.get(0));
-                            //ADD TWEET TO DATABASE
-                            if(farmerConfig.isDatabaseStorage()) {
-                                databaseProcExecuter.connect();
-                                //Insert Tweet to database
-                                databaseProcExecuter.execProcInsertTweet(currentTweets.get(0).getId(),
-                                        ClassIdPair.getIdByClassname(ClassIdPairs, currentTweets.get(0).getCl()), currentTweets.get(0).getText(),
-                                        currentTweets.get(0).getLikes(), currentTweets.get(0).getRetweets());
-                                //Add inserted Tweets to history(useful by multiple users)
-                                tweetHistoryReceiver.addNewTweets2History(TweetConverter.getTweetsFromDatabase(databaseProcExecuter.execProcSelectTweetsFromFarmer(farmername),farmername));
-                                databaseProcExecuter.disconnect();
+        if( this.currentTweets!=null) {
+            if(this.currentTweets.size()>0) {
+                this.ivProfil.setImage(new Image(currentTweets.get(0).getProfilImageUrl()));
+                this.lbName.setText(currentTweets.get(0).getUsername() + " @" + currentTweets.get(0).getScreenname());
+                this.lbDate.setText(currentTweets.get(0).getDate());
+                this.taTweet.setText(currentTweets.get(0).getText());
+                int i = 0;
+                for (String c : classes) {
+                    Button btClasses = new Button(c);
+                    btClasses.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            //Remove tweet from currentTweets
+                            if (currentTweets.size() > 0) {
+                                currentTweets.get(0).setCl(btClasses.getText());
+                                LocalStorager.insertTweet(farmername, currentTweets.get(0));
+                                //ADD TWEET TO DATABASE
+                                if (farmerConfig.isDatabaseStorage()) {
+                                    databaseProcExecuter.connect();
+                                    //Insert Tweet to database
+                                    databaseProcExecuter.execProcInsertTweet(currentTweets.get(0).getId(),
+                                            ClassIdPair.getIdByClassname(ClassIdPairs, currentTweets.get(0).getCl()), currentTweets.get(0).getText(),
+                                            currentTweets.get(0).getLikes(), currentTweets.get(0).getRetweets());
+                                    //Add inserted Tweets to history(useful by multiple users)
+                                    tweetHistoryReceiver.addNewTweets2History(TweetConverter.getTweetsFromDatabase(databaseProcExecuter.execProcSelectTweetsFromFarmer(farmername), farmername));
+                                    databaseProcExecuter.disconnect();
+                                }
+                                currentTweets.remove(0);
                             }
+                            if (currentTweets.size() == 0) {
+                                currentTweets = tweetHistoryReceiver.getNewTweets();
+                            }
+                            //Reload TweetViewPanel
+                            lbName.setText(currentTweets.get(0).getUsername() + " @" + currentTweets.get(0).getScreenname());
+                            lbDate.setText(currentTweets.get(0).getDate());
+                            taTweet.setText(currentTweets.get(0).getText());
+                            ivProfil.setImage(new Image(currentTweets.get(0).getProfilImageUrl()));
+
+                        }
+                    });
+                    hbClasses.getChildren().add(btClasses);
+                }
+                //Add Ignore Button
+                this.btIgnore.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        //NO STORAGE
+                        //Remove tweet from currentTweets
+                        if (currentTweets.size() > 1) {
                             currentTweets.remove(0);
+                        } else {
+                            try {
+                                currentTweets.remove(0);
+                            } catch (Exception ex) {
+
+                            }
+                            if (farmerConfig.isDatabaseStorage()) {
+                                tweetHistoryReceiver.addNewTweets2History(TweetConverter.getTweetsFromDatabase(databaseProcExecuter.execProcSelectTweetsFromFarmer(farmername), farmername));
+                            }
+                            currentTweets = tweetHistoryReceiver.getNewTweets();
                         }
-                        catch (Exception ex) {
-
-                        }
-                        currentTweets = tweetHistoryReceiver.getNewTweets();
+                        //Reload TweetViewPanel
+                        lbName.setText(currentTweets.get(0).getUsername() + " @" + currentTweets.get(0).getScreenname());
+                        lbDate.setText(currentTweets.get(0).getDate());
+                        taTweet.setText(currentTweets.get(0).getText());
+                        ivProfil.setImage(new Image(currentTweets.get(0).getProfilImageUrl()));
                     }
-                    //Reload TweetViewPanel
-                    lbName.setText(currentTweets.get(0).getUsername() + " @" + currentTweets.get(0).getScreenname());
-                    lbDate.setText(currentTweets.get(0).getDate());
-                    taTweet.setText(currentTweets.get(0).getText());
-                    ivProfil.setImage(new Image(currentTweets.get(0).getProfilImageUrl()));
-
-                }
-            });
-            hbClasses.getChildren().add(btClasses);
-        }
-        //Add Ignore Button
-        this.btIgnore.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                //NO STORAGE
-                //Remove tweet from currentTweets
-                if(currentTweets.size()>1) {
-                    currentTweets.remove(0);
-                }
-                else {
-                    try {
-                        currentTweets.remove(0);
-                    }
-                    catch (Exception ex) {
-
-                    }
-                    if(farmerConfig.isDatabaseStorage()) {
-                        tweetHistoryReceiver.addNewTweets2History(TweetConverter.getTweetsFromDatabase(databaseProcExecuter.execProcSelectTweetsFromFarmer(farmername),farmername));
-                    }
-                    currentTweets = tweetHistoryReceiver.getNewTweets();
-                }
-                //Reload TweetViewPanel
-                lbName.setText(currentTweets.get(0).getUsername() + " @" + currentTweets.get(0).getScreenname());
-                lbDate.setText(currentTweets.get(0).getDate());
-                taTweet.setText(currentTweets.get(0).getText());
-                ivProfil.setImage(new Image(currentTweets.get(0).getProfilImageUrl()));
+                });
             }
-        });
+            else {
+                this.lbName.setText("No more Tweets available");
+            }
+        }
+        else {
+            this.lbName.setText("No more Tweets available");
+        }
     }
 
     /**
@@ -256,10 +239,17 @@ public class TweetFarmerWindowController implements Initializable{
      * @param actionEvent
      */
     public void exportCSV(ActionEvent actionEvent) {
-        ArrayList<Tweet> tweets = LocalStorager.readAllTweetsFromLocal(farmername);
+        ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+        if(farmerConfig.isDatabaseStorage()) {
+            databaseProcExecuter.connect();
+            tweets = TweetConverter.getTweetsFromDatabase(databaseProcExecuter.execProcSelectTweetsFromFarmer(farmername),farmername);
+            databaseProcExecuter.disconnect();
+        }
+        else {
+            LocalStorager.readAllTweetsFromLocal(farmername);
+        }
         if(tweets.size()>0) {
             CsvExporter.export(farmername, tweets);
-            System.out.println("written..");
         }
     }
 }

@@ -41,12 +41,12 @@ public class FileManager {
      * @param localStorage
      * @return
      */
-    public boolean write_farmer(String hashtags[], DatabaseConfigData databaseConfigData, String classes[], boolean localStorage) {
+    public boolean write_farmer(String hashtags[], DatabaseConfigData databaseConfigData, String classes[], boolean localStorage, String language) {
         File farmerFolder = new File(this.FARMERS_PATH+this.farmername);
         if(!farmerFolder.exists()) {
             farmerFolder.mkdir();
 
-            return new FarmerConfigWriter().write(farmername,hashtags,databaseConfigData,classes,localStorage);
+            return new FarmerConfigWriter().write(farmername,hashtags,databaseConfigData,classes,localStorage,language);
         }
         else {
             return false;
@@ -78,6 +78,23 @@ public class FileManager {
         for(File f : folder.listFiles()) {
             if(f.isDirectory()) {
                 folders.add(f.getName());
+            }
+        }
+        return folders;
+
+    }
+
+    public static ArrayList<String> listDatabaseFarmers() {
+        ArrayList<String> folders = new ArrayList<String>();
+        File folder = new File(FARMERS_PATH);
+        for(File f : folder.listFiles()) {
+            if(f.isDirectory()) {
+                File dbFile = new File(FARMERS_PATH+f.getName()+"/database_config.xml");
+                if(dbFile.exists()) {
+                    DatabaseConfigData databaseConfigData = new DatabaseConfigData();
+                    databaseConfigData.readData(f.getName());
+                    folders.add(f.getName()+"("+databaseConfigData.getIp()+"/"+databaseConfigData.getDbTyp()+")");
+                }
             }
         }
         return folders;

@@ -198,6 +198,19 @@ public class Tweet {
         return Long.MAX_VALUE;
     }
 
+    public static long getMaxTweetId(ArrayList<Tweet> tweets) {
+        if(tweets.size()>0) {
+            long max = tweets.get(0).id;
+            for (int i = 0; i < tweets.size(); i++) {
+                if(tweets.get(i).id>max) {
+                    max = tweets.get(i).id;
+                }
+            }
+            return max;
+        }
+        return Long.MAX_VALUE;
+    }
+
     public static boolean containsId(ArrayList<Tweet> tweets, long id) {
         if(tweets.size()==0) {
             return false;

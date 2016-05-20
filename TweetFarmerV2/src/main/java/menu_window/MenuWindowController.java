@@ -3,17 +3,17 @@ package menu_window;
 import config_data.DatabaseConfigData;
 import database_setup_window.DatabaseSetupWindow;
 import file_manager.FileManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.util.StringConverter;
 import setup_window.SetupWindow;
 import setup_window.SetupWindowController;
 import tweet_farmer_window.TweetFarmerWindow;
@@ -25,7 +25,9 @@ import java.util.ResourceBundle;
  * Created by apolol92 on 20.05.2016.
  * This is the Menu Window Controller.
  */
-public class MenuWindowController implements Initializable{
+public class MenuWindowController implements Initializable {
+    @FXML
+    public ComboBox cobLanguage;
     /**
      * ListViews with farmers
      */
@@ -74,18 +76,38 @@ public class MenuWindowController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        cobLanguage.setConverter(new StringConverter<String>() {
+
+            @Override
+            public String toString(String object) {
+                return object == null ? null : object.toString();
+            }
+
+            @Override
+            public String fromString(String string) {
+                return null;
+            }
+        });
+        cobLanguage.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                checkAllFilled();
+            }
+        });
         update();
     }
+
     /**
      * Creates a new farmer
+     *
      * @param actionEvent
      */
     @FXML
     public void btCreateFarmerClick(ActionEvent actionEvent) {
         FileManager fileManager = new FileManager(tfFarmername.getText());
-        if(fileManager.write_farmer(tfHashtags.getText().split(","),databaseConfigData,tfClasses.getText().split(","),
-                true)) {
-            if(databaseConfigData!=null) {
+        if (fileManager.write_farmer(tfHashtags.getText().split(","), databaseConfigData, tfClasses.getText().split(","),
+                true,cobLanguage.getSelectionModel().getSelectedItem().toString())) {
+            if (databaseConfigData != null) {
                 databaseConfigData.writeData(tfFarmername.getText());
 
             }
@@ -101,20 +123,20 @@ public class MenuWindowController implements Initializable{
      * Update MenuWindow
      */
     private void update() {
-        ObservableList<String> items = FXCollections.observableArrayList (FileManager.listFarmers());
+        ObservableList<String> items = FXCollections.observableArrayList(FileManager.listFarmers());
         this.lvFarmers.setItems(items);
     }
 
     /**
      * Controls if all textfields arent empty..
-     * @param event
      */
     @FXML
-    public void checkAllFilled(KeyEvent event) {
-        if(tfFarmername.getText().trim().compareTo("")!=0 && tfHashtags.getText().trim().compareTo("")!=0&&tfClasses.getText().trim().compareTo("")!=0) {
-            this.btCreateFarmer.setDisable(false);
-        }
-        else {
+    public void checkAllFilled() {
+        if (tfFarmername.getText().trim().compareTo("") != 0 && tfHashtags.getText().trim().compareTo("") != 0 && tfClasses.getText().trim().compareTo("") != 0) {
+            if (cobLanguage.getSelectionModel().getSelectedItem() != null) {
+                this.btCreateFarmer.setDisable(false);
+            }
+        } else {
             this.btCreateFarmer.setDisable(true);
         }
     }
@@ -124,11 +146,10 @@ public class MenuWindowController implements Initializable{
      */
     @FXML
     public void cbDatabaseStorageCheck(ActionEvent actionEvent) {
-        if(cbDatabaseStorage.isSelected()) {
+        if (cbDatabaseStorage.isSelected()) {
             this.databaseConfigData = new DatabaseConfigData();
             this.databaseSetupWindow = new DatabaseSetupWindow(this.databaseConfigData);
-        }
-        else {
+        } else {
             this.databaseConfigData = null;
             this.databaseSetupWindow.stage.close();
         }
@@ -136,6 +157,7 @@ public class MenuWindowController implements Initializable{
 
     /**
      * Open Twitter Key Settings..
+     *
      * @param actionEvent
      */
     public void openTwitterKeys(ActionEvent actionEvent) {
@@ -146,6 +168,7 @@ public class MenuWindowController implements Initializable{
 
     /**
      * After clicking on Load Farmer
+     *
      * @param actionEvent
      */
     public void btLoadFarmerClick(ActionEvent actionEvent) {
