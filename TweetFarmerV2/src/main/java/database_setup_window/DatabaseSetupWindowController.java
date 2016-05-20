@@ -59,8 +59,8 @@ public class DatabaseSetupWindowController implements Initializable{
 
     public void btSelectDatabase() {
         if(lvDatabases.getSelectionModel().getSelectedItem()!=null) {
-            this.databaseConfigData = new DatabaseConfigData();
             this.databaseConfigData.readData(lvDatabases.getSelectionModel().getSelectedItem().toString().split("\\(")[0]);
+            System.out.println(this.databaseConfigData.getIp());
             System.out.println(lvDatabases.getSelectionModel().getSelectedItem().toString().split("\\(")[0]);
             ((Stage)tfDatabaseIp.getScene().getWindow()).close();
         }

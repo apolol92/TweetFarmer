@@ -108,6 +108,7 @@ public class MenuWindowController implements Initializable {
         if (fileManager.write_farmer(tfHashtags.getText().split(","), databaseConfigData, tfClasses.getText().split(","),
                 true,cobLanguage.getSelectionModel().getSelectedItem().toString())) {
             if (databaseConfigData != null) {
+                System.out.println(this.databaseConfigData.getIp());
                 databaseConfigData.writeData(tfFarmername.getText());
 
             }
