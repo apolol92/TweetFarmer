@@ -1,0 +1,17 @@
+Procedure: getTweets(farmername):
+Get all tweets of the given farmer.
+
+Procedure: insertTweets(farmername, classname, tweettext, likes, retweets):
+Insert a new tweet into database
+
+Procedure: updateTweet(tweetId, classname, tweettext, likes, retweets)
+Update a given Tweet(tweetId).
+
+Procedure: deleteTweet(tweetId)
+Delete a given Tweet(tweetId).
+
+Procedure: deleteFarmer(name)
+Delete a farmer by name -> Starts a trigger, which delete all dependent tweets and classes
+
+Procedure: deleteClass(farmername,name)
+Delete a class of a given farmername -> Starts a trigger which deletes all dependent tweets

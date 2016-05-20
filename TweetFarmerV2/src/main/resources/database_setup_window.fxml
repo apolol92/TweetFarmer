@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox>
+         <children>
+            <Label text="Saved Databases">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <ListView prefHeight="200.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </ListView>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Select">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox>
+         <children>
+            <Label text="New Database Access">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="7.0" />
+               </VBox.margin>
+            </Label>
+            <AnchorPane prefHeight="215.0" prefWidth="336.0">
+               <children>
+                  <Label layoutX="8.0" layoutY="14.0" text="IP Address" />
+                  <Label layoutX="168.0" layoutY="14.0" text="Databasename" />
+                  <Label layoutX="8.0" layoutY="62.0" text="Database Typ" />
+                  <Label layoutX="168.0" layoutY="62.0" text="Port" />
+                  <Label layoutX="8.0" layoutY="113.0" text="Username" />
+                  <Label layoutX="168.0" layoutY="113.0" text="Password" />
+                  <TextField fx:id="tfDatabasename" layoutX="168.0" layoutY="31.0" onKeyPressed="#checkAllFilled"/>
+                  <TextField fx:id="tfDatabaseIp" layoutX="4.0" layoutY="31.0" onKeyPressed="#checkAllFilled"/>
+                  <TextField fx:id="tfDatabaseUsername" layoutX="4.0" layoutY="130.0" onKeyPressed="#checkAllFilled"/>
+                  <TextField fx:id="tfDatabasePassword" layoutX="168.0" layoutY="130.0" onKeyPressed="#checkAllFilled"/>
+                  <TextField fx:id="tfDatabasePort" layoutX="168.0" layoutY="79.0" onKeyPressed="#checkAllFilled"/>
+                  <Button fx:id="btCreateDatabase" layoutX="270.0" layoutY="203.0" mnemonicParsing="false" text="Create" disable="true" onAction="#btCreateDatabaseClick"/>
+                  <ComboBox fx:id="cobDatabaseTyps" layoutX="5.0" layoutY="79.0" prefWidth="150.0" >
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="PostgreSQL" />
+                           <String fx:value="MSSQL(not supported yet)" />
+                           <String fx:value="MySQL(not supported yet)" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </AnchorPane>
+         </children>
+         <HBox.margin>
+            <Insets left="5.0" />
+         </HBox.margin>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+</HBox>

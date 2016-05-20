@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu_window.MenuWindowController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Settings">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#openTwitterKeys" text="Twitter Keys" />
+               </items></Menu>
+      </menus>
+    </MenuBar>
+      <HBox>
+         <children>
+            <VBox>
+               <children>
+                  <Label text="Farmers">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="lvFarmers" prefHeight="200.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </ListView>
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Load" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="New Farmer">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Name" />
+                  <TextField fx:id="tfFarmername" onKeyPressed="#checkAllFilled" promptText="BrandFarmer">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Hashtags" />
+                  <TextField fx:id="tfHashtags" onKeyPressed="#checkAllFilled" promptText="adidas,nike,puma">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Classes" />
+                  <TextField fx:id="tfClasses" onKeyPressed="#checkAllFilled" promptText="positive,negative,neutral">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="cbDatabaseStorage" mnemonicParsing="false" onAction="#cbDatabaseStorageCheck" text="Database Storage" />
+                  <HBox alignment="BOTTOM_RIGHT" prefHeight="73.0" prefWidth="149.0">
+                     <children>
+                        <Button fx:id="btCreateFarmer" disable="true" mnemonicParsing="false" onAction="#btCreateFarmerClick" text="Create" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </HBox>
+  </children>
+</VBox>

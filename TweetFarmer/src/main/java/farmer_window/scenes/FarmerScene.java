@@ -2,12 +2,9 @@ package farmer_window.scenes;
 
 import custom_tweet.Tweet;
 import data_exporter.CsvExporter;
-import farmer_window.scenes.panels.FarmerMenuPanel;
 import farmer_window.scenes.panels.TweetViewPanel;
-import javafx.beans.NamedArg;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -37,10 +34,7 @@ public class FarmerScene extends Scene {
      * The layout of scene
      */
     private HBox hbLayout;
-    /**
-     * FarmerMenu Panel
-     */
-    private FarmerMenuPanel farmerMenuPanel;
+
     /**
      * Stage of Farmer
      */
@@ -55,7 +49,6 @@ public class FarmerScene extends Scene {
         this.farmername = farmername;
         this.layout = (VBox)this.getRoot();
         this.hbLayout = new HBox();
-        this.farmerMenuPanel = new FarmerMenuPanel();
         //Menu
         Menu exportMenu = new Menu("Export");
 

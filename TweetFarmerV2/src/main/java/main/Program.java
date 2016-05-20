@@ -1,16 +1,14 @@
 package main;
 
-import farmer_file_manager.TwitterConfigData;
-import global.Global;
+import config_data.TwitterConfigData;
 import javafx.application.Application;
-import javafx.scene.effect.Glow;
 import javafx.stage.Stage;
 import menu_window.MenuWindow;
 import setup_window.SetupWindow;
-
+import setup_window.SetupWindowController;
 
 /**
- * Created by apolol92 on 09.05.2016.
+ * Created by apolol92 on 19.05.2016.
  * Application-Class
  */
 public class Program extends Application {
@@ -18,25 +16,23 @@ public class Program extends Application {
     public static void main(String args[]) {
         launch(args);
     }
-
     /**
      * Starts javafx ui
      * @param primaryStage
      * @throws Exception
      */
-    @Override
     public void start(Stage primaryStage) throws Exception {
         if(TwitterConfigData.fileExists()) {
             //Menu Window
-            MenuWindow menuWindow = new MenuWindow(primaryStage);
+            MenuWindow menuWindow = new MenuWindow();
+
+
         }
         else {
             //Setup Window
-            SetupWindow setupWindow = new SetupWindow(primaryStage);
+            SetupWindowController.firstStart = true;
+            SetupWindow setupWindow = new SetupWindow();
 
         }
-
-
-
     }
 }
