@@ -6,7 +6,6 @@ import file_manager.FileManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,9 +13,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.text.Text;
 import setup_window.SetupWindow;
 import setup_window.SetupWindowController;
+import tweet_farmer_window.TweetFarmerWindow;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,6 +56,10 @@ public class MenuWindowController implements Initializable{
     @FXML
     public Button btCreateFarmer;
     /**
+     * Button for loading a Farmer
+     */
+    public Button btLoadFarmer;
+    /**
      * Container for databaseConfig
      */
     DatabaseConfigData databaseConfigData = null;
@@ -81,10 +84,15 @@ public class MenuWindowController implements Initializable{
         FileManager fileManager = new FileManager(tfFarmername.getText());
         if(fileManager.write_farmer(tfHashtags.getText().split(","),databaseConfigData,tfClasses.getText().split(","),
                 true)) {
-            update();
             if(databaseConfigData!=null) {
                 databaseConfigData.writeData(tfFarmername.getText());
+
             }
+            update();
+            tfFarmername.setText("");
+            tfClasses.setText("");
+            tfHashtags.setText("");
+
         }
     }
 
@@ -135,4 +143,11 @@ public class MenuWindowController implements Initializable{
     }
 
 
+    /**
+     * After clicking on Load Farmer
+     * @param actionEvent
+     */
+    public void btLoadFarmerClick(ActionEvent actionEvent) {
+        TweetFarmerWindow tweetFarmerWindow = new TweetFarmerWindow(lvFarmers.getSelectionModel().getSelectedItem().toString());
+    }
 }

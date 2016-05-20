@@ -36,7 +36,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </ListView>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Load" />
+                  <Button fx:id="btLoadFarmer" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Load" onAction="#btLoadFarmerClick"/>
                </children>
             </VBox>
             <VBox>

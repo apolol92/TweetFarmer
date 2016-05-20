@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+            <Menu mnemonicParsing="false" text="Configuration">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+        <Menu mnemonicParsing="false" text="Export">
+          <items>
+            <MenuItem mnemonicParsing="false" text="CSV" onAction="#exportCSV"/>
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="ivProfil" fitHeight="87.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@apolol92.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </ImageView>
+            <VBox>
+               <children>
+                  <HBox>
+                     <children>
+                        <Label fx:id="lbName" prefHeight="17.0" prefWidth="274.0" text="Robert @r87">
+                           <padding>
+                              <Insets left="7.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="TOP_RIGHT" prefHeight="17.0" prefWidth="99.0">
+                           <children>
+                              <Label fx:id="lbDate" text="02-23-2016" textFill="#9e9e9e">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="taTweet" cacheShape="false" centerShape="false" editable="false" focusTraversable="false" prefHeight="70.0" prefWidth="307.0" scaleShape="false" stylesheets="@tweet_farmer_window.css" text="Lorem ipsum dolor sit amet, at sale posse eripuit sed, eu soluta fabulas nam. Mei et laudem repudiare repudiandae, ad dicta persecuti sea. Sed consequat argumentum no, audiam regione vocibus vim ne. Errem ornatus cu mea. Et habeo oportere salutatus cum, malis mucius persequeris duo ut." wrapText="true" />
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="15.0" right="15.0" top="15.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT">
+         <children>
+            <HBox fx:id="hbClasses" maxWidth="342.0" minWidth="342.0" prefHeight="0.0" prefWidth="342.0" />
+            <Button fx:id="btIgnore" mnemonicParsing="false" text="Ignore" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="9.0" left="15.0" right="15.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="TOP_RIGHT">
+         <children>
+            <Label text="Class 1: 30%">
+               <font>
+                  <Font size="9.0" />
+               </font>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="Class 2: 40%">
+               <font>
+                  <Font size="9.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="Class 3: 30%">
+               <font>
+                  <Font size="9.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="Collected Tweets: 100">
+               <font>
+                  <Font size="9.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+         <padding>
+            <Insets right="15.0" />
+         </padding>
+      </HBox>
+  </children>
+</VBox>
