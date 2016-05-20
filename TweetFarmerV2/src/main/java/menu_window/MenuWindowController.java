@@ -6,6 +6,7 @@ import file_manager.FileManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -74,6 +75,7 @@ public class MenuWindowController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         update();
+
     }
     /**
      * Creates a new farmer
@@ -149,5 +151,9 @@ public class MenuWindowController implements Initializable{
      */
     public void btLoadFarmerClick(ActionEvent actionEvent) {
         TweetFarmerWindow tweetFarmerWindow = new TweetFarmerWindow(lvFarmers.getSelectionModel().getSelectedItem().toString());
+    }
+
+    public void lvFarmersClicked(Event event) {
+        this.btLoadFarmer.setDisable(false);
     }
 }

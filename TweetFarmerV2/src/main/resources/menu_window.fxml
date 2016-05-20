@@ -31,12 +31,12 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="lvFarmers" prefHeight="200.0" prefWidth="200.0">
+                  <ListView fx:id="lvFarmers" onMouseClicked="#lvFarmersClicked" prefHeight="200.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </ListView>
-                  <Button fx:id="btLoadFarmer" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Load" onAction="#btLoadFarmerClick"/>
+                  <Button fx:id="btLoadFarmer" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Load" onAction="#btLoadFarmerClick" />
                </children>
             </VBox>
             <VBox>
