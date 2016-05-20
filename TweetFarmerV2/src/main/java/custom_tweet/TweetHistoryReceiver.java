@@ -75,6 +75,15 @@ public class TweetHistoryReceiver {
         queryStringSetup();
     }
 
+    public boolean containsTweet(long id) {
+        for(int i = 0; i < historyTweets.size(); i++) {
+            if(historyTweets.get(i).getId()==id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Setup Twitter-Configuration
      */
@@ -136,6 +145,7 @@ public class TweetHistoryReceiver {
             return nTweets;
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             return null;
         }
 
@@ -152,11 +162,17 @@ public class TweetHistoryReceiver {
     /**
      * Add new tweets to history tweets
      */
-    private void addNewTweets2History(ArrayList<Tweet> nTweets) {
+    public void addNewTweets2History(ArrayList<Tweet> nTweets) {
         for(int i = 0; i < nTweets.size(); i++) {
-            this.historyTweets.add(new Tweet(nTweets.get(i)));
+            if(!containsTweet(nTweets.get(i).getId())) {
+                this.historyTweets.add(new Tweet(nTweets.get(i)));
+            }
         }
     }
+
+
+
+
 
 
 

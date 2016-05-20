@@ -55,7 +55,8 @@ public class FarmerConfigReader {
                         break;
                     case 3:
                         String v = node.getAttribute("str").getValue();
-                        if(v=="1") {
+                        System.out.println("EINS:"+v);
+                        if(Integer.parseInt(v)==1) {
                             farmerConfig.setDatabaseStorage(true);
                         }
                         else {
