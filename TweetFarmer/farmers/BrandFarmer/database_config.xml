@@ -1,8 +1,0 @@
-<database>
-  <ip>127.0.0.1</ip>
-  <dbTyp>PostgreSQL</dbTyp>
-  <port>5432</port>
-  <databasename>farmer_test</databasename>
-  <username>postgres</username>
-  <password>x8xtvu</password>
-</database>
