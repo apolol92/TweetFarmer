@@ -19,6 +19,11 @@
                 <MenuItem fx:id="miSettings" mnemonicParsing="false" text="Settings" onAction="#miSettingClicked"/>
               </items>
             </Menu>
+          <Menu mnemonicParsing="false" text="Tweets">
+              <items>
+                <MenuItem fx:id="miEdit" mnemonicParsing="false" text="Edit" onAction="#miEditClicked"/>
+              </items>
+          </Menu>
         <Menu mnemonicParsing="false" text="Export">
           <items>
             <MenuItem mnemonicParsing="false" text="CSV" onAction="#exportCSV"/>

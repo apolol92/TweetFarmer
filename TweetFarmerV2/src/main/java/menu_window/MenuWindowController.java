@@ -107,6 +107,7 @@ public class MenuWindowController implements Initializable {
                     if(lvFarmers.getSelectionModel().getSelectedItem()!=null) {
                         FarmerConfig farmerConfig = new FarmerConfig();
                         FileManager fileManager = new FileManager(lvFarmers.getSelectionModel().getSelectedItem().toString());
+                        System.out.println(lvFarmers.getSelectionModel().getSelectedItem().toString());
                         farmerConfig = fileManager.readFarmer(lvFarmers.getSelectionModel().getSelectedItem().toString());
                         if (farmerConfig.isDatabaseStorage()) {
                             DatabaseConfigData databaseConfigData = new DatabaseConfigData();

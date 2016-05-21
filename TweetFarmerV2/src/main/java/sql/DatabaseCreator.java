@@ -55,6 +55,8 @@ public class DatabaseCreator extends SqlManager {
             stmt.executeUpdate(getProcSelectTweetsFrom());
             stmt.executeUpdate(getProcGetClassesFromFarmername());
             stmt.executeUpdate(getProcDeleteFarmer());
+            stmt.executeUpdate(getProcDeleteTweetFromFarmer());
+            stmt.executeUpdate(getProcUpdateTweetFromFarmer());
             stmt.close();
             return true;
         }
@@ -152,6 +154,32 @@ public class DatabaseCreator extends SqlManager {
                     "DELETE FROM farmer_classes WHERE  farmer_id=mid; "+
                     "DELETE FROM farmers WHERE id = mid;" +
                     "RETURN mid; " +
+                    "END; $$ LANGUAGE plpgsql;";
+        }
+        return "";
+    }
+
+    public String getProcDeleteTweetFromFarmer() {
+        if(this.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
+            return "CREATE OR REPLACE FUNCTION deleteTweetFromFarmer(tweetId BIGINT) RETURNS BIGINT AS $$ " +
+                    "DECLARE mid BIGINT;" +
+                    "BEGIN " +
+                    "DELETE FROM farmer_tweets WHERE  id=tweetId; "+
+                    "RETURN mid; " +
+                    "END; $$ LANGUAGE plpgsql;";
+        }
+        return "";
+    }
+
+    public String getProcUpdateTweetFromFarmer() {
+        if(this.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
+            return "CREATE OR REPLACE FUNCTION updateTweetFromFarmer(farmername TEXT, tweetId BIGINT, nClass TEXT) RETURNS BIGINT AS $$ " +
+                    "DECLARE cid BIGINT; DECLARE fid BIGINT;" +
+                    "BEGIN " +
+                    "SELECT id INTO fid FROM farmers WHERE name=farmername; " +
+                    "SELECT id INTO cid FROM farmer_classes WHERE farmer_id=fid and name = nClass; "+
+                    "UPDATE farmer_tweets SET class_id=cid WHERE id=tweetId;" +
+                    "RETURN cid; " +
                     "END; $$ LANGUAGE plpgsql;";
         }
         return "";

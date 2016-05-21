@@ -124,4 +124,27 @@ public class DatabaseProcExecuter extends SqlManager{
 
     }
 
+    public void execProcDeleteTweetFromFarmer(long tweetId) {
+        if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
+            try {
+                Statement stmt = super.connection.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM deleteTweetFromFarmer('" + tweetId + "');");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
+            }
+        }
+    }
+//farmername TEXT, tweetId BIGINT, nClass TEXT
+    public void execProcUpdateTweetFromFarmer(String farmername, long tweetId, String nClass) {
+        if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
+            try {
+                Statement stmt = super.connection.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM updateTweetFromFarmer('"+farmername+"'," + tweetId + ",'"+nClass+"');");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
+            }
+        }
+    }
 }

@@ -16,7 +16,7 @@ public class TweetConverter {
             while(rs.next()) {
                 //farmer_classes.name, farmer_tweets.tweet_text, farmer_tweets.likes
                 //farmer_tweets.retweets, tweetid
-                tweets.add(new Tweet(rs.getLong(5),"none","none","none",rs.getString(2),rs.getInt(4),
+                tweets.add(new Tweet(rs.getString(1),rs.getLong(5),"none","none","none",rs.getString(2),rs.getInt(4),
                         rs.getInt(3)));
             }
             return tweets;

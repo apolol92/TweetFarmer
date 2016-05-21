@@ -2,6 +2,8 @@ package local_storage;
 
 import custom_tweet.Tweet;
 import file_manager.FileManager;
+import org.apache.commons.io.FileDeleteStrategy;
+import org.apache.commons.io.FileUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -9,7 +11,9 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -78,7 +82,9 @@ public class LocalStorager {
             XMLOutputter xmlOutput = new XMLOutputter();
             // display nice nice
             xmlOutput.setFormat(Format.getPrettyFormat());
-            xmlOutput.output(tweetsNode, new FileWriter(FileManager.FARMERS_PATH + farmername + "/tweets.xml"));
+            FileWriter fw = new FileWriter(FileManager.FARMERS_PATH + farmername + "/tweets.xml");
+            xmlOutput.output(tweetsNode, fw);
+            fw.close();
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -94,7 +100,11 @@ public class LocalStorager {
         try {
             File inputFile = new File(FileManager.FARMERS_PATH + farmername + "/tweets.xml");
             SAXBuilder saxBuilder = new SAXBuilder();
-            Document document = saxBuilder.build(inputFile);
+            if(!inputFile.exists()) {
+                inputFile.createNewFile();
+            }
+            FileInputStream in = new FileInputStream(inputFile);
+            Document document = saxBuilder.build(in);
             Element rootElement = document.getRootElement();
             Element tNode = new Element("tweet");
             //ID Element
@@ -134,8 +144,10 @@ public class LocalStorager {
             XMLOutputter xmlOutput = new XMLOutputter();
             // display nice nice
             xmlOutput.setFormat(Format.getPrettyFormat());
-            xmlOutput.output(rootElement, new FileWriter(FileManager.FARMERS_PATH + farmername + "/tweets.xml"));
-
+            FileWriter fw = new FileWriter(FileManager.FARMERS_PATH + farmername + "/tweets.xml");
+            xmlOutput.output(rootElement, fw);
+            fw.close();
+            in.close();
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -151,9 +163,10 @@ public class LocalStorager {
         ArrayList<Tweet> tweets = new ArrayList<>();
         try {
             File inputFile = new File(FileManager.FARMERS_PATH+farmername+"/tweets.xml");
+            FileInputStream in = new FileInputStream(inputFile);
             SAXBuilder saxBuilder = new SAXBuilder();
             if(inputFile.exists()) {
-                Document document = saxBuilder.build(inputFile);
+                Document document = saxBuilder.build(in);
                 Element tweetsElement = document.getRootElement();
                 for (int i = 0; i < tweetsElement.getChildren().size(); i++) {
                     long id = Long.parseLong(tweetsElement.getChildren().get(i).getChildren().get(0).getText());
@@ -164,9 +177,9 @@ public class LocalStorager {
                     int retweets = Integer.parseInt(tweetsElement.getChildren().get(i).getChildren().get(5).getText());
                     int likes = Integer.parseInt(tweetsElement.getChildren().get(i).getChildren().get(6).getText());
                     String cl = tweetsElement.getChildren().get(i).getChildren().get(7).getText();
-                    System.out.println(cl);
                     tweets.add(new Tweet(cl, id, username, screenname, date, tweetText, retweets, likes));
                 }
+                in.close();
                 return tweets;
             }
          }
@@ -174,5 +187,38 @@ public class LocalStorager {
             ex.printStackTrace();
         }
         return tweets;
+    }
+
+    public static void deleteTweetById(String farmername, long id) {
+        try {
+            ArrayList<Tweet> tweets = readAllTweetsFromLocal(farmername);
+            FileUtils.forceDelete(new File(FileManager.FARMERS_PATH+farmername+"/tweets.xml"));
+            for(int i = 0; i < tweets.size(); i++) {
+                if(tweets.get(i).getId()!=id) {
+                    insertTweet(farmername,tweets.get(i));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void updateTweetClass(String farmername, long id, String nClass) {
+        try {
+            ArrayList<Tweet> tweets = readAllTweetsFromLocal(farmername);
+            FileUtils.forceDelete(new File(FileManager.FARMERS_PATH+farmername+"/tweets.xml"));
+            for(int i = 0; i < tweets.size(); i++) {
+                if(tweets.get(i).getId()!=id) {
+                    insertTweet(farmername,tweets.get(i));
+                }
+                else {
+                    tweets.get(i).setCl(nClass);
+                    insertTweet(farmername,tweets.get(i));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

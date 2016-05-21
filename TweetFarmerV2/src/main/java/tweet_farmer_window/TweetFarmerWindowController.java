@@ -5,6 +5,7 @@ import config_data.TwitterConfigData;
 import custom_tweet.Tweet;
 import custom_tweet.TweetHistoryReceiver;
 import data_exporter.CsvExporter;
+import edit_tweets_window.EditTweetsWindow;
 import farmer_edit_window.FarmerEditWindow;
 import file_manager.FarmerConfig;
 import file_manager.FileManager;
@@ -41,6 +42,9 @@ import java.util.ResourceBundle;
 public class TweetFarmerWindowController implements Initializable{
     @FXML
     public MenuItem miSettings;
+    @FXML
+    public MenuItem miEdit;
+
     private ArrayList<ClassIdPair> ClassIdPairs;
     /**
      * Farmer Config
@@ -266,5 +270,9 @@ public class TweetFarmerWindowController implements Initializable{
     @FXML
     public void miSettingClicked(ActionEvent actionEvent) {
         FarmerEditWindow farmerEditWindow = new FarmerEditWindow(farmername);
+    }
+
+    public void miEditClicked(ActionEvent actionEvent) {
+        EditTweetsWindow editTweetsWindow = new EditTweetsWindow(farmername);
     }
 }
