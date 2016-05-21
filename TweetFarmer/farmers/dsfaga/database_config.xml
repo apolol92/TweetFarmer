@@ -1,8 +1,0 @@
-<database>
-  <ip>125.124.124.24</ip>
-  <dbTyp />
-  <port>5432</port>
-  <databasename>zutest</databasename>
-  <username>gdsano</username>
-  <password>hans</password>
-</database>

@@ -1,8 +1,0 @@
-<database>
-  <ip>127.0.0.1</ip>
-  <dbTyp />
-  <port>5432</port>
-  <databasename>mydb</databasename>
-  <username>tester</username>
-  <password>tester</password>
-</database>
