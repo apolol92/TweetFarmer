@@ -249,7 +249,6 @@ public class TweetFarmerWindowController implements Initializable{
                         ivProfil.setImage(new Image(currentTweets.get(0).getProfilImageUrl()));
                     }
                 });
-                //Add footer
             }
             else {
                 this.lbName.setText("No more Tweets available");

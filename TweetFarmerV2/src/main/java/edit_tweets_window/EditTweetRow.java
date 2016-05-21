@@ -27,12 +27,15 @@ public class EditTweetRow extends HBox {
      */
     public EditTweetRow(Tweet tweet, FarmerConfig farmerConfig) {
         super();
-        this.setMaxHeight(300);
+        this.setMaxHeight(80);
+        this.setMinHeight(80);
+        this.setPrefHeight(80);
         TextArea taTweets = new TextArea(tweet.getText());
         taTweets.setPrefWidth(500);
-        taTweets.setPrefHeight(500);
+        taTweets.setPrefHeight(80);
         taTweets.setMaxWidth(500);
-        taTweets.setMaxHeight(500);
+        taTweets.setMaxHeight(80);
+        taTweets.setWrapText(true);
         taTweets.setEditable(false);
         ObservableList<String> classes =
                 FXCollections.observableArrayList(
@@ -42,7 +45,7 @@ public class EditTweetRow extends HBox {
         System.out.println(tweet.getCl());
         cobClass.getSelectionModel().select(tweet.getCl());
         cobClass.setPrefWidth(300);
-        cobClass.setMaxHeight(50);
+        cobClass.setMaxHeight(80);
         cobClass.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -78,9 +81,9 @@ public class EditTweetRow extends HBox {
             }
         });
         btDelete.setPrefWidth(300);
-        btDelete.setPrefHeight(300);
+        btDelete.setPrefHeight(80);
         btDelete.setMaxWidth(300);
-        btDelete.setMaxHeight(300);
+        btDelete.setMaxHeight(80);
         this.getChildren().addAll(taTweets,cobClass,btDelete);
     }
 }
