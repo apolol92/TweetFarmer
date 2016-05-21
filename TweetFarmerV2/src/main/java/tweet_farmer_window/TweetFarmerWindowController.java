@@ -267,11 +267,18 @@ public class TweetFarmerWindowController implements Initializable{
             CsvExporter.export(farmername, tweets);
         }
     }
+    /**
+     * If MenuItem was clicked..
+     */
     @FXML
     public void miSettingClicked(ActionEvent actionEvent) {
         FarmerEditWindow farmerEditWindow = new FarmerEditWindow(farmername);
     }
 
+    /**
+     * If MenuItem was clicked..
+     * @param actionEvent
+     */
     public void miEditClicked(ActionEvent actionEvent) {
         EditTweetsWindow editTweetsWindow = new EditTweetsWindow(farmername);
     }

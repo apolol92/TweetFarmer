@@ -6,9 +6,13 @@ import java.sql.SQLException;
 
 /**
  * Created by apolol92 on 19.05.2016.
+ * Parent class of all SQL-Classes
  */
 public class SqlManager {
 
+    /**
+     * Supported DBMS
+     */
     public static final String TYP_POSTGRESQL = "PostgreSQL";
 
     public int getDbPort() {
@@ -19,7 +23,13 @@ public class SqlManager {
         this.dbport = port;
     }
 
+    /**
+     * Database-Port
+     */
     private int dbport;
+    /**
+     * Connection
+     */
     protected Connection connection;
     public String getDbIp() {
         return dbip;
@@ -61,12 +71,36 @@ public class SqlManager {
         this.dbpassword = dbpassword;
     }
 
+    /**
+     * Database-IP
+     */
     private String dbip;
+    /**
+     * Database-Typ
+     */
     private String dbtyp;
+    /**
+     * Database-Name
+     */
     private String dbname;
+    /**
+     * Database-User
+     */
     private String dbuser;
+    /**
+     * Database-Password
+     */
     private String dbpassword;
 
+    /**
+     * Constructor
+     * @param dbip
+     * @param dbport
+     * @param dbtyp
+     * @param dbname
+     * @param dbuser
+     * @param dbpassword
+     */
     public SqlManager(String dbip, int dbport, String dbtyp, String dbname, String dbuser, String dbpassword) {
         this.dbip = dbip;
         this.dbport = dbport;
@@ -77,6 +111,10 @@ public class SqlManager {
         this.connection = null;
     }
 
+    /**
+     * Connect to database
+     * @return
+     */
     public boolean connect() {
         if(this.dbtyp.compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             try {
@@ -94,6 +132,10 @@ public class SqlManager {
         return false;
     }
 
+    /**
+     * Disconnect from database
+     * @return
+     */
     public boolean disconnect() {
         try {
             this.connection.close();

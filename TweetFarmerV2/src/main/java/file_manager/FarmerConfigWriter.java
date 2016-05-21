@@ -21,6 +21,16 @@ public class FarmerConfigWriter {
      */
     public static final String MAIN_CONFIG_XML = "main_config.xml";
 
+    /**
+     * Write the Farmer Config
+     * @param farmername
+     * @param hashtags
+     * @param databaseConfigData
+     * @param classes
+     * @param localStorage
+     * @param language
+     * @return
+     */
     public boolean write(String farmername, String hashtags[], DatabaseConfigData databaseConfigData, String classes[], boolean localStorage, String language) {
 
         try

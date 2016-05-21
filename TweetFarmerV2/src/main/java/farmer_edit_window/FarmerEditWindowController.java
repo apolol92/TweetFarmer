@@ -20,20 +20,42 @@ import java.util.ResourceBundle;
 
 /**
  * Created by apolol92 on 21.05.2016.
+ * This is the controller of the FarmerEditWindow
  */
 public class FarmerEditWindowController implements Initializable {
+    /**
+     * This textfield is the input for hashtags
+     */
     @FXML
     public TextField tfHashtags;
+    /**
+     * This combobox gives the user a language selection for his tweets
+     */
     @FXML
     public ComboBox cobLanaguage;
+    /**
+     * Agree for changes
+     */
     @FXML
     public Button btEdit;
+    /**
+     * Current farmername
+     */
     private String farmername;
 
+    /**
+     * This is the constructor for the FarmerEditWindowController
+     * @param farmername
+     */
     public FarmerEditWindowController(String farmername) {
         this.farmername = farmername;
     }
 
+    /**
+     * Initialize method for UI
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //fill ui..
@@ -59,6 +81,10 @@ public class FarmerEditWindowController implements Initializable {
 
     }
 
+    /**
+     * After click on btEdit
+     * @param actionEvent
+     */
     public void btEditClicked(ActionEvent actionEvent) {
         FarmerConfig farmerConfig = new FarmerConfig();
         farmerConfig = new FileManager(farmername).readFarmer(farmername);

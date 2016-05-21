@@ -112,6 +112,10 @@ public class DatabaseConfigData {
         this.password = password;
     }
 
+    /**
+     * This method writes DatabaseConfigData in file system..
+     * @param farmername
+     */
     public void writeData(String farmername) {
         try {
             Element tNode = new Element("database");

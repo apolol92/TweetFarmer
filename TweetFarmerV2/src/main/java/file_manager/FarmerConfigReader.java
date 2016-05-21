@@ -11,6 +11,11 @@ import java.util.List;
  */
 public class FarmerConfigReader {
 
+    /**
+     * Read the Farmer Config
+     * @param farmername
+     * @return
+     */
     public FarmerConfig read(String farmername) {
         try {
             FarmerConfig farmerConfig = new FarmerConfig();

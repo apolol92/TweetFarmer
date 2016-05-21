@@ -11,9 +11,19 @@ import java.io.IOException;
 
 /**
  * Created by apolol92 on 20.05.2016.
+ * This ist the DatabaseStupWindow..
+ * In this window you can setup your databases
  */
 public class DatabaseSetupWindow {
+    /**
+     * Window-Stage
+     */
     public Stage stage;
+
+    /**
+     * Constructor.. creates the ui with FXML
+     * @param databaseConfigData
+     */
     public DatabaseSetupWindow(DatabaseConfigData databaseConfigData) {
         this.stage = new Stage();
         Parent root = null;

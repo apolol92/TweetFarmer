@@ -189,6 +189,11 @@ public class LocalStorager {
         return tweets;
     }
 
+    /**
+     * Delete a tweet by id in tweets.xml
+     * @param farmername
+     * @param id
+     */
     public static void deleteTweetById(String farmername, long id) {
         try {
             ArrayList<Tweet> tweets = readAllTweetsFromLocal(farmername);
@@ -204,6 +209,12 @@ public class LocalStorager {
 
     }
 
+    /**
+     * Update a tweet in tweets.xml
+     * @param farmername
+     * @param id
+     * @param nClass
+     */
     public static void updateTweetClass(String farmername, long id, String nClass) {
         try {
             ArrayList<Tweet> tweets = readAllTweetsFromLocal(farmername);

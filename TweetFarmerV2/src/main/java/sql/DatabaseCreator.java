@@ -5,13 +5,27 @@ import java.sql.Statement;
 
 /**
  * Created by apolol92 on 19.05.2016.
+ * This class creates all in the database
  */
 public class DatabaseCreator extends SqlManager {
 
+    /**
+     * Constructor
+     * @param dbip
+     * @param dbport
+     * @param dbtyp
+     * @param dbname
+     * @param dbuser
+     * @param dbpassword
+     */
     public DatabaseCreator(String dbip, int dbport, String dbtyp, String dbname, String dbuser, String dbpassword) {
         super(dbip,dbport,dbtyp,dbname,dbuser,dbpassword);
     }
 
+    /**
+     * Creates all needed tables
+     * @return
+     */
     public boolean createTables() {
         String sqlFarmers ="";
         String sqlClasses = "";
@@ -46,6 +60,10 @@ public class DatabaseCreator extends SqlManager {
         return false;
     }
 
+    /**
+     * Creates all needed procedures
+     * @return
+     */
     public boolean createProcedures() {
         try {
             Statement stmt = super.connection.createStatement();
@@ -66,6 +84,10 @@ public class DatabaseCreator extends SqlManager {
         return false;
     }
 
+    /**
+     * Creates the procedure for inserting farmers
+     * @return
+     */
     private String getProcInsertFarmer() {
         if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION insertFarmer(farmername TEXT) RETURNS BIGINT AS $$ " +
@@ -79,6 +101,10 @@ public class DatabaseCreator extends SqlManager {
         return "";
     }
 
+    /**
+     * Creates the procedure for inserting classes
+     * @return
+     */
     private String getProcInsertClass() {
         if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION insertClass(farmerId BIGINT, classname TEXT) RETURNS BIGINT AS $$ " +
@@ -92,6 +118,10 @@ public class DatabaseCreator extends SqlManager {
         return "";
     }
 
+    /**
+     * Creates the procedure for getting all classes of one farmer
+     * @return
+     */
     public String getProcGetClassesFromFarmername() {
         if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION getProcGetClassesFromFarmername(farmername TEXT) RETURNS TABLE(class_name TEXT, class_id BIGINT) AS $$ " +
@@ -105,6 +135,10 @@ public class DatabaseCreator extends SqlManager {
         return "";
     }
 
+    /**
+     * Creates the procedure for selecting tweets of a farmer
+     * @return
+     */
     private String getProcSelectTweetsFrom() {
         if(super.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION selectTweetsFrom(farmer_name TEXT) "+
@@ -117,6 +151,10 @@ public class DatabaseCreator extends SqlManager {
     }
 
 
+    /**
+     * Select-Query for getProcSelectTweetsFrom
+     * @return
+     */
     private String getSelectTweetsFrom() {
         return "SELECT farmer_classes.name, farmer_tweets.tweet_text, farmer_tweets.likes, farmer_tweets.retweets, farmer_tweets.id FROM farmers "+
                     "INNER JOIN " +
@@ -131,6 +169,10 @@ public class DatabaseCreator extends SqlManager {
     }
 
 
+    /**
+     * Procedure for inserting a tweet
+     * @return
+     */
     public String getProcInsertTweet() {
         if(this.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION insertTweet(tweetId BIGINT, classId BIGINT, tweetTxt TEXT, liks INTEGER, rtweets INTEGER) RETURNS BIGINT AS $$ " +
@@ -144,6 +186,10 @@ public class DatabaseCreator extends SqlManager {
         return "";
     }
 
+    /**
+     * Procedure for deleting farmers
+     * @return
+     */
     public String getProcDeleteFarmer() {
         if(this.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION deleteFarmer(farmername TEXT) RETURNS BIGINT AS $$ " +
@@ -159,6 +205,10 @@ public class DatabaseCreator extends SqlManager {
         return "";
     }
 
+    /**
+     * Procedure for deleting a Tweet
+     * @return
+     */
     public String getProcDeleteTweetFromFarmer() {
         if(this.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION deleteTweetFromFarmer(tweetId BIGINT) RETURNS BIGINT AS $$ " +
@@ -171,6 +221,10 @@ public class DatabaseCreator extends SqlManager {
         return "";
     }
 
+    /**
+     * Procedure for updating a Tweet
+     * @return
+     */
     public String getProcUpdateTweetFromFarmer() {
         if(this.getDbtyp().compareTo(SqlManager.TYP_POSTGRESQL)==0) {
             return "CREATE OR REPLACE FUNCTION updateTweetFromFarmer(farmername TEXT, tweetId BIGINT, nClass TEXT) RETURNS BIGINT AS $$ " +

@@ -11,10 +11,19 @@ import java.io.IOException;
 
 /**
  * Created by apolol92 on 21.05.2016.
+ * This is the FarmerEditWindow..
+ * Here you can edit you farmer..
  */
 public class FarmerEditWindow {
+    /**
+     * Window-Stage
+     */
     private final Stage stage;
 
+    /**
+     * This is the constructor.. ui will be created with FXML
+     * @param farmername
+     */
     public FarmerEditWindow(String farmername) {
         this.stage = new Stage();
         Parent root = null;

@@ -54,6 +54,16 @@ public class FileManager {
             return false;
         }
     }
+
+    /**
+     * Edit a farmer
+     * @param hashtags
+     * @param databaseConfigData
+     * @param classes
+     * @param localStorage
+     * @param language
+     * @return
+     */
     public boolean edit_write_farmer(String hashtags[], DatabaseConfigData databaseConfigData, String classes[], boolean localStorage, String language) {
         File farmerFolder = new File(this.FARMERS_PATH+this.farmername);
         if(farmerFolder.exists()) {
@@ -95,6 +105,10 @@ public class FileManager {
 
     }
 
+    /**
+     * List all farmers with databases
+     * @return
+     */
     public static ArrayList<String> listDatabaseFarmers() {
         ArrayList<String> folders = new ArrayList<String>();
         File folder = new File(FARMERS_PATH);
@@ -112,6 +126,10 @@ public class FileManager {
 
     }
 
+    /**
+     * Delete a farmer
+     * @param farmername
+     */
     public static void deleteFarmer(String farmername) {
         File folder = new File(FARMERS_PATH+farmername);
         try {

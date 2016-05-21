@@ -210,6 +210,10 @@ public class MenuWindowController implements Initializable {
         TweetFarmerWindow tweetFarmerWindow = new TweetFarmerWindow(lvFarmers.getSelectionModel().getSelectedItem().toString());
     }
 
+    /**
+     * Afer clicking on lvFarmers
+     * @param event
+     */
     public void lvFarmersClicked(Event event) {
         this.btLoadFarmer.setDisable(false);
     }

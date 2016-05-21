@@ -17,8 +17,14 @@ import sql.DatabaseProcExecuter;
 
 /**
  * Created by apolol92 on 21.05.2016.
+ * This class represents a row in EditTweetsWindow.. it contains a single tweet..
  */
 public class EditTweetRow extends HBox {
+    /**
+     * Constructor
+     * @param tweet
+     * @param farmerConfig
+     */
     public EditTweetRow(Tweet tweet, FarmerConfig farmerConfig) {
         super();
         this.setMaxHeight(300);

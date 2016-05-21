@@ -20,21 +20,39 @@ import java.util.ResourceBundle;
 
 /**
  * Created by apolol92 on 21.05.2016.
- *
+ * This is the Controller for the EditTweetsWindow
  */
 public class EditTweetsWindowController implements Initializable{
+    /**
+     * Scrollpanel for all Tweets
+     */
     @FXML
     public ScrollPane spTweets;
+    /**
+     * Verticalbox for Tweets
+     */
     @FXML
     public VBox vbTweets;
+    /**
+     * This is the current farmername
+     */
     private String farmername;
 
 
+    /**
+     * EditTweetsWindowController Constructor
+     * @param farmername
+     */
     public EditTweetsWindowController(String farmername) {
         this.farmername = farmername;
 
     }
 
+    /**
+     * UI Initializer
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<Tweet> tweets = new ArrayList<Tweet>();

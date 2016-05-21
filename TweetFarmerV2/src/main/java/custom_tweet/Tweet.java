@@ -92,6 +92,17 @@ public class Tweet {
         this.profilImageUrl = profilImageUrl;
     }
 
+    /**
+     * Constructs a Tweet with
+     * @param cl
+     * @param id
+     * @param username
+     * @param screenname
+     * @param date
+     * @param text
+     * @param retweets
+     * @param likes
+     */
     public Tweet(String cl, long id, String username, String screenname, String date, String text, int retweets, int likes) {
         this.id = id;
         this.username = username;
@@ -103,6 +114,16 @@ public class Tweet {
         this.cl = cl;
     }
 
+    /**
+     * Constructs a Tweet with
+     * @param id
+     * @param username
+     * @param screenname
+     * @param date
+     * @param text
+     * @param retweets
+     * @param likes
+     */
     public Tweet(long id, String username, String screenname, String date, String text, int retweets, int likes) {
         this.id = id;
         this.username = username;
@@ -113,6 +134,10 @@ public class Tweet {
         this.likes = likes;
     }
 
+    /**
+     * Copy-Constructor
+     * @param t
+     */
     public Tweet(Tweet t) {
         this.id = t.id;
         this.username = t.getUsername();
@@ -176,6 +201,10 @@ public class Tweet {
         this.cl = cl;
     }
 
+    /**
+     * Constructs a Tweet with
+     * @param id
+     */
     public Tweet(long id) {
         this.id = id;
     }
@@ -198,6 +227,11 @@ public class Tweet {
         return Long.MAX_VALUE;
     }
 
+    /**
+     * Get the max Tweet-ID
+     * @param tweets
+     * @return
+     */
     public static long getMaxTweetId(ArrayList<Tweet> tweets) {
         if(tweets.size()>0) {
             long max = tweets.get(0).id;
@@ -211,6 +245,12 @@ public class Tweet {
         return Long.MAX_VALUE;
     }
 
+    /**
+     * Do tweets contains id id?
+     * @param tweets
+     * @param id
+     * @return
+     */
     public static boolean containsId(ArrayList<Tweet> tweets, long id) {
         if(tweets.size()==0) {
             return false;

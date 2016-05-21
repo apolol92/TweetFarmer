@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Created by apolol92 on 17.05.2016.
+ * This Class export the tweets as csv
  */
 public class CsvExporter {
 

@@ -10,10 +10,18 @@ import java.io.IOException;
 
 /**
  * Created by apolol92 on 21.05.2016.
+ * In this window you can edit your tweets..
  */
 public class EditTweetsWindow {
+    /**
+     * Window-Stage
+     */
     private final Stage stage;
 
+    /**
+     * Constructs the window..
+     * @param farmername
+     */
     public EditTweetsWindow(String farmername) {
         this.stage = new Stage();
         Parent root = null;
