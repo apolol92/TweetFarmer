@@ -40,10 +40,20 @@ import java.util.ResourceBundle;
  * This is the controller for the TweetFarmerWindow
  */
 public class TweetFarmerWindowController implements Initializable{
+    /**
+     * Farmer-Settings
+     */
     @FXML
     public MenuItem miSettings;
+    /**
+     * Tweet-Edit
+     */
     @FXML
     public MenuItem miEdit;
+    /**
+     * Contains informations about the tweet-collection
+     */
+    public HBox hbFooter;
 
     private ArrayList<ClassIdPair> ClassIdPairs;
     /**
@@ -239,6 +249,7 @@ public class TweetFarmerWindowController implements Initializable{
                         ivProfil.setImage(new Image(currentTweets.get(0).getProfilImageUrl()));
                     }
                 });
+                //Add footer
             }
             else {
                 this.lbName.setText("No more Tweets available");

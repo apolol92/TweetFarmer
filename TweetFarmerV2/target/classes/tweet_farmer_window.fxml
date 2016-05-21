@@ -16,17 +16,17 @@
       <menus>
             <Menu mnemonicParsing="false" text="Farmer">
               <items>
-                <MenuItem fx:id="miSettings" mnemonicParsing="false" text="Settings" onAction="#miSettingClicked"/>
+                <MenuItem fx:id="miSettings" mnemonicParsing="false" onAction="#miSettingClicked" text="Settings" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Tweets">
               <items>
-                <MenuItem fx:id="miEdit" mnemonicParsing="false" text="Edit" onAction="#miEditClicked"/>
+                <MenuItem fx:id="miEdit" mnemonicParsing="false" onAction="#miEditClicked" text="Edit" />
               </items>
           </Menu>
         <Menu mnemonicParsing="false" text="Export">
           <items>
-            <MenuItem mnemonicParsing="false" text="CSV" onAction="#exportCSV"/>
+            <MenuItem mnemonicParsing="false" onAction="#exportCSV" text="CSV" />
           </items>
         </Menu>
       </menus>
@@ -81,44 +81,7 @@
             <Insets bottom="9.0" left="15.0" right="15.0" />
          </VBox.margin>
       </HBox>
-      <HBox alignment="TOP_RIGHT">
-         <children>
-            <Label text="Class 1: 30%">
-               <font>
-                  <Font size="9.0" />
-               </font>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Label>
-            <Label text="Class 2: 40%">
-               <font>
-                  <Font size="9.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Label>
-            <Label text="Class 3: 30%">
-               <font>
-                  <Font size="9.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Label>
-            <Label text="Collected Tweets: 100">
-               <font>
-                  <Font size="9.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Label>
-         </children>
+      <HBox fx:id="hbFooter" alignment="TOP_RIGHT">
          <padding>
             <Insets right="15.0" />
          </padding>

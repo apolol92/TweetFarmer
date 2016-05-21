@@ -59,7 +59,7 @@
                   <TextField fx:id="tfDatabasename" layoutX="168.0" layoutY="31.0" onKeyPressed="#checkAllFilled"/>
                   <TextField fx:id="tfDatabaseIp" layoutX="4.0" layoutY="31.0" onKeyPressed="#checkAllFilled"/>
                   <TextField fx:id="tfDatabaseUsername" layoutX="4.0" layoutY="130.0" onKeyPressed="#checkAllFilled"/>
-                  <TextField fx:id="tfDatabasePassword" layoutX="168.0" layoutY="130.0" onKeyPressed="#checkAllFilled"/>
+                  <PasswordField fx:id="tfDatabasePassword" layoutX="168.0" layoutY="130.0" onKeyPressed="#checkAllFilled"/>
                   <TextField fx:id="tfDatabasePort" layoutX="168.0" layoutY="79.0" onKeyPressed="#checkAllFilled"/>
                   <Button fx:id="btCreateDatabase" layoutX="270.0" layoutY="203.0" mnemonicParsing="false" text="Create" disable="true" onAction="#btCreateDatabaseClick"/>
                   <ComboBox fx:id="cobDatabaseTyps" layoutX="5.0" layoutY="79.0" prefWidth="150.0" >

@@ -163,9 +163,9 @@ public class LocalStorager {
         ArrayList<Tweet> tweets = new ArrayList<>();
         try {
             File inputFile = new File(FileManager.FARMERS_PATH+farmername+"/tweets.xml");
-            FileInputStream in = new FileInputStream(inputFile);
             SAXBuilder saxBuilder = new SAXBuilder();
             if(inputFile.exists()) {
+                FileInputStream in = new FileInputStream(inputFile);
                 Document document = saxBuilder.build(in);
                 Element tweetsElement = document.getRootElement();
                 for (int i = 0; i < tweetsElement.getChildren().size(); i++) {
