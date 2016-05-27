@@ -146,7 +146,7 @@ public class TweetHistoryReceiver {
                     result = twitter.search(query);
                     List<Status> tweets = result.getTweets();
                     for (Status tweet : tweets) {
-                        if (!Tweet.containsId(this.historyTweets, tweet.getId())) {
+                        if (!containsId(this.historyTweets, tweet.getId())) {
                             nTweets.add(new Tweet(tweet.getId(), tweet.getUser().getName(), tweet.getUser().getScreenName(),
                                     tweet.getUser().getCreatedAt().toString(), tweet.getText(), tweet.getRetweetCount(),
                                     tweet.getFavoriteCount(), tweet.getUser().getBiggerProfileImageURL()));
@@ -157,7 +157,7 @@ public class TweetHistoryReceiver {
                 addNewTweets2History(nTweets);
                 System.out.println("Wait for it.." + counter);
                 if (counter > 3) {
-                    minId = Tweet.getMaxTweetId(historyTweets) + counter*100;
+                    minId = getMaxTweetId(historyTweets) + counter*100;
                 }
                 if(counter>=5) {
                     break;
@@ -196,5 +196,40 @@ public class TweetHistoryReceiver {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+    /**
+     * Get the max Tweet-ID
+     * @param tweets
+     * @return
+     */
+    public static long getMaxTweetId(ArrayList<Tweet> tweets) {
+        if(tweets.size()>0) {
+            long max = tweets.get(0).getId();
+            for (int i = 0; i < tweets.size(); i++) {
+                if(tweets.get(i).getId()>max) {
+                    max = tweets.get(i).getId();
+                }
+            }
+            return max;
+        }
+        return Long.MAX_VALUE;
+    }
+
+    /**
+     * Do tweets contains id id?
+     * @param tweets
+     * @param id
+     * @return
+     */
+    public static boolean containsId(ArrayList<Tweet> tweets, long id) {
+        if(tweets.size()==0) {
+            return false;
+        }
+        for(int i = 0; i < tweets.size(); i++) {
+            if(tweets.get(i).getId()==id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

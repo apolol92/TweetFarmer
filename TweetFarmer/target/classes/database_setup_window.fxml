@@ -31,7 +31,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </ListView>
-            <Button fx:id="btSelectDb" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Select" onAction="#btSelectDatabase">
+            <Button fx:id="btSelectDb" mnemonicParsing="false" onAction="#btSelectDatabase" prefHeight="25.0" prefWidth="200.0" text="Select">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -48,34 +48,52 @@
                   <Insets left="7.0" />
                </VBox.margin>
             </Label>
-            <AnchorPane prefHeight="215.0" prefWidth="336.0">
+            <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="8.0" layoutY="14.0" text="IP Address" />
-                  <Label layoutX="168.0" layoutY="14.0" text="Databasename" />
-                  <Label layoutX="8.0" layoutY="62.0" text="Database Typ" />
-                  <Label layoutX="168.0" layoutY="62.0" text="Port" />
-                  <Label layoutX="8.0" layoutY="113.0" text="Username" />
-                  <Label layoutX="168.0" layoutY="113.0" text="Password" />
-                  <TextField fx:id="tfDatabasename" layoutX="168.0" layoutY="31.0" onKeyPressed="#checkAllFilled"/>
-                  <TextField fx:id="tfDatabaseIp" layoutX="4.0" layoutY="31.0" onKeyPressed="#checkAllFilled"/>
-                  <TextField fx:id="tfDatabaseUsername" layoutX="4.0" layoutY="130.0" onKeyPressed="#checkAllFilled"/>
-                  <PasswordField fx:id="tfDatabasePassword" layoutX="168.0" layoutY="130.0" onKeyPressed="#checkAllFilled"/>
-                  <TextField fx:id="tfDatabasePort" layoutX="168.0" layoutY="79.0" onKeyPressed="#checkAllFilled"/>
-                  <Button fx:id="btCreateDatabase" layoutX="270.0" layoutY="203.0" mnemonicParsing="false" text="Create" disable="true" onAction="#btCreateDatabaseClick"/>
-                  <ComboBox fx:id="cobDatabaseTyps" layoutX="5.0" layoutY="79.0" prefWidth="150.0" >
-                     <items>
-                        <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="PostgreSQL" />
-                           <String fx:value="MSSQL(not supported yet)" />
-                           <String fx:value="MySQL(not supported yet)" />
-                        </FXCollections>
-                     </items>
-                  </ComboBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="IP Address" />
+                        <TextField fx:id="tfDatabaseIp" onKeyPressed="#checkAllFilled" />
+                        <Label text="Database Typ" />
+                        <ComboBox fx:id="cobDatabaseTyps" prefWidth="150.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="PostgreSQL" />
+                                 <String fx:value="MSSQL(not supported yet)" />
+                                 <String fx:value="MySQL(not supported yet)" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <Label text="Username" />
+                        <TextField fx:id="tfDatabaseUsername" onKeyPressed="#checkAllFilled" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Databasename" />
+                        <TextField fx:id="tfDatabasename" onKeyPressed="#checkAllFilled" />
+                        <Label text="Port" />
+                        <TextField fx:id="tfDatabasePort" onKeyPressed="#checkAllFilled" />
+                        <Label text="Password" />
+                        <PasswordField fx:id="tfDatabasePassword" onKeyPressed="#checkAllFilled" />
+                        <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="btCreateDatabase" disable="true" mnemonicParsing="false" onAction="#btCreateDatabaseClick" text="Create" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </AnchorPane>
+            </HBox>
          </children>
          <HBox.margin>
             <Insets left="5.0" />

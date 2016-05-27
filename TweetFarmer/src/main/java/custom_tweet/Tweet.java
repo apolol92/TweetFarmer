@@ -227,39 +227,5 @@ public class Tweet {
         return Long.MAX_VALUE;
     }
 
-    /**
-     * Get the max Tweet-ID
-     * @param tweets
-     * @return
-     */
-    public static long getMaxTweetId(ArrayList<Tweet> tweets) {
-        if(tweets.size()>0) {
-            long max = tweets.get(0).id;
-            for (int i = 0; i < tweets.size(); i++) {
-                if(tweets.get(i).id>max) {
-                    max = tweets.get(i).id;
-                }
-            }
-            return max;
-        }
-        return Long.MAX_VALUE;
-    }
 
-    /**
-     * Do tweets contains id id?
-     * @param tweets
-     * @param id
-     * @return
-     */
-    public static boolean containsId(ArrayList<Tweet> tweets, long id) {
-        if(tweets.size()==0) {
-            return false;
-        }
-        for(int i = 0; i < tweets.size(); i++) {
-            if(tweets.get(i).id==id) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
