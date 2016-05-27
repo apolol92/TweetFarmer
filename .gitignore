@@ -1,3 +1,5 @@
-./TweetFarmer/farmers/
-./TweetFarmer/farmers/*
-./TweetFarmer/twitter_config.xml
+TweetFarmer/farmers/*
+TweetFarmer/twitter_config.xml
+TweetFarmer/target/*
+TweetFarmer/.idead/*
+TweetFarmer/TweetFarmer.iml
