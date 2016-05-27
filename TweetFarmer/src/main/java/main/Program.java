@@ -22,6 +22,7 @@ public class Program extends Application {
      * @throws Exception
      */
     public void start(Stage primaryStage) throws Exception {
+        System.setProperty("glass.accessible.force","false");
         if(TwitterConfigData.fileExists()) {
             //Menu Window
             MenuWindow menuWindow = new MenuWindow();
